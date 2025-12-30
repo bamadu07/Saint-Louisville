@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Mairie de Saint-Louis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --secondary-color: #3c6382;
+            --accent-color: #f6b93b;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --border-radius: 12px;
+            --card-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Container responsive */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header avec navbar en fond blanc */
+        header {
+            background: white;
+            color: var(--dark-color);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--dark-color);
+        }
+
+        .logo-image {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .logo-text h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-left: 10px;
+            color: var(--primary-color);
+        }
+
+        .logo-text span {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 2px;
+            margin-left: 10px;
+            color: var(--secondary-color);
+        }
+
+        /* Header Slider */
+        .header-slider {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background-color: var(--primary-color);
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            height: 100%;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        .slider-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(10, 61, 98, 0.7), rgba(8, 49, 78, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .slider-overlay h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slider-overlay p {
+            font-size: 1rem;
+            max-width: 600px;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            background: var(--accent-color);
+            transform: scale(1.3);
+        }
+
+        /* Navbar Desktop - Toujours visible */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .desktop-nav ul li {
+            position: relative;
+        }
+
+        .desktop-nav ul li a {
+            display: block;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .desktop-nav ul li a:hover {
+            background-color: rgba(10, 61, 98, 0.05);
+            color: var(--primary-color);
+            border-color: rgba(10, 61, 98, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .desktop-nav ul li a.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(10, 61, 98, 0.2);
+        }
+
+        /* Bouton menu mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        /* Menu mobile */
+        .mobile-menu {
+            display: none;
+            background: white;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 999;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu ul li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu ul li a {
+            display: block;
+            padding: 18px 20px;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .mobile-menu ul li a:hover,
+        .mobile-menu ul li a.active {
+            background-color: rgba(10, 61, 98, 0.05);
+            color: var(--primary-color);
+            padding-left: 25px;
+        }
+
+        .mobile-menu ul li a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Hero Contact */
+        .contact-hero {
+            background: linear-gradient(rgba(10, 61, 98, 0.9), rgba(8, 49, 78, 0.95));
+            color: white;
+            text-align: center;
+            padding: 4rem 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 60%, rgba(246, 185, 59, 0.1) 100%);
+        }
+
+        .contact-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Styles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+            font-size: 1.8rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: #e2a82b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0a3362;
+        }
+
+        /* Informations de Contact */
+        .contact-info-section {
+            padding: 3rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .contact-card {
+            background-color: white;
+            border-radius: var(--card-radius);
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--accent-color), #e2a82b);
+        }
+
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Carte et Horaires */
+        .map-section {
+            background-color: #f0f7ff;
+            padding: 3rem 0;
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (min-width: 992px) {
+            .map-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Carte Google Maps en iframe */
+        .map-iframe-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 61, 98, 0.9);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .map-overlay h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+
+        .map-overlay .btn-small {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .map-overlay .btn-small:hover {
+            background-color: #e2a82b;
+            transform: translateY(-2px);
+        }
+
+        .horaires h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .horaires-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .horaires-table th, .horaires-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .horaires-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .horaires-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .horaires-table tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* Formulaire Contact */
+        .contact-form-section {
+            padding: 3rem 0;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--card-radius);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(10, 61, 98, 0.1);
+            background-color: white;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Messages d'alerte */
+        .alert {
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* Loader */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-logo h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact i {
+            width: 20px;
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        /* Desktop Styles - Media Queries */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .header-container {
+                padding: 0 30px;
+            }
+            
+            .header-slider {
+                height: 400px;
+            }
+            
+            .slider-overlay h2 {
+                font-size: 2.5rem;
+            }
+            
+            .slider-overlay p {
+                font-size: 1.2rem;
+            }
+            
+            .logo-image {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .desktop-nav ul {
+                gap: 10px;
+            }
+            
+            .desktop-nav ul li a {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .contact-hero {
+                padding: 6rem 2rem;
+            }
+            
+            .contact-hero h2 {
+                font-size: 3rem;
+            }
+            
+            .contact-hero p {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Cacher la navbar desktop sur mobile */
+            .desktop-nav {
+                display: none;
+            }
+            
+            /* Afficher le bouton menu mobile */
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-slider {
+                height: 250px;
+            }
+            
+            .slider-overlay h2 {
+                font-size: 1.5rem;
+            }
+            
+            .slider-overlay p {
+                font-size: 0.9rem;
+            }
+            
+            .contact-hero h2 {
+                font-size: 2rem;
+            }
+            
+            .contact-hero p {
+                font-size: 1rem;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            .logo-image {
+                width: 50px;
+                height: 50px;
+                padding: 4px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.1rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+            
+            .map-iframe-container {
+                height: 350px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header-container {
+                padding: 0 40px;
+            }
+            
+            .header-slider {
+                height: 450px;
+            }
+            
+            .slider-overlay h2 {
+                font-size: 3rem;
+            }
+            
+            .desktop-nav ul {
+                gap: 15px;
+            }
+            
+            .desktop-nav ul li a {
+                padding: 12px 28px;
+                font-size: 1rem;
+            }
+            
+            .contact-hero {
+                padding: 8rem 2rem;
+            }
+            
+            .contact-hero h2 {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* Animation au scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Bouton retour en haut */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navbar en fond blanc -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-image">
+                    <!-- Logo image de la Mairie de Saint-Louis -->
+                    <img src="images/logomairi2.png" 
+                         alt="Logo Mairie de Saint-Louis" 
+                         class="logo-img">
+                </div>
+                <div class="logo-text">
+                    <h1>Mairie de <span>Saint-Louis</span></h1>
+                    <p>Sénégal - Patrimoine UNESCO</p>
+                </div>
+            </a>
+            
+            <!-- Navbar Desktop - Visible sur desktop -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="ville.html">La Ville</a></li>
+                    <li><a href="mairie.html">Histoire & Patrimoine</a></li>
+                    <li><a href="demarches.html">Démarches en ligne</a></li>
+                    <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Bouton menu mobile -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Menu mobile (caché sur desktop) -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="ville.html">La Ville</a></li>
+                <li><a href="mairie.html">Histoire & Patrimoine</a></li>
+                <li><a href="demarches.html">Démarches en ligne</a></li>
+                <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Header Slider avec 2 images -->
+    <section class="header-slider">
+        <div class="slider-container">
+            <div class="slider-track" id="headerSliderTrack">
+                <!-- Slide 1 -->
+                <div class="slider-slide">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                         alt="Contact Mairie de Saint-Louis">
+                    <div class="slider-overlay">
+                        <h2>Contactez la Mairie de Saint-Louis</h2>
+                        <p>Nous sommes à votre écoute pour répondre à toutes vos questions et préoccupations</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slider-slide">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                         alt="Mairie de Saint-Louis">
+                    <div class="slider-overlay">
+                        <h2>Notre Équipe Municipale</h2>
+                        <p>Une équipe dévouée prête à vous aider et à vous accompagner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slider-controls" id="headerSliderDots">
+                <!-- Les points seront générés par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Informations de Contact -->
+    <section class="contact-info-section">
+        <div class="container">
+            <h2 class="section-title">Nos Coordonnées</h2>
+            <div class="contact-grid">
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Adresse</h3>
+                    <p>Mairie de Saint-Louis<br>
+                    Place Faidherbe<br>
+                    Île de Saint-Louis<br>
+                    Sénégal</p>
+                </div>
+                
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Téléphone</h3>
+                    <p>Standard : +221 33 961 10 10<br>
+                    Fax : +221 33 961 10 11<br>
+                    Urgences : +221 33 961 10 12</p>
+                </div>
+                
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>o.ndiaye@bcmgroupe.com<br>
+                    etatcivil@mairie-saintlouis.sn<br>
+                    urbanisme@mairie-saintlouis.sn</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carte et Horaires -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container">
+                <div class="animate-on-scroll">
+                    <h3>Carte de Saint-Louis</h3>
+                    <div class="map-iframe-container">
+                        <!-- Iframe Google Maps centrée sur Saint-Louis -->
+                        <iframe 
+                            class="map-iframe"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.111979428787!2d-16.50537172477041!3d16.026017071527372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec2128b2f0cc8cb%3A0xa96e87b2a2a5e8b1!2sSaint-Louis%2C%20Senegal!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Carte de Saint-Louis, Sénégal">
+                        </iframe>
+                        <div class="map-overlay">
+                            <h4><i class="fas fa-map-marker-alt"></i> Mairie de Saint-Louis</h4>
+                            <a href="https://goo.gl/maps/ABC123DEF456" target="_blank" class="btn-small">
+                                <i class="fas fa-directions"></i> Itinéraire
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Boutons supplémentaires sous la carte -->
+                    <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                        <a href="https://www.google.com/maps/place/Saint-Louis,+Senegal/@16.0259,-16.5031,15z" 
+                           target="_blank" 
+                           class="btn" 
+                           style="background-color: var(--primary-color); color: white; padding: 10px 20px; font-size: 0.9rem;">
+                            <i class="fas fa-external-link-alt"></i> Ouvrir dans Google Maps
+                        </a>
+                        <a href="https://www.openstreetmap.org/#map=15/16.0259/-16.5031" 
+                           target="_blank" 
+                           class="btn" 
+                           style="background-color: #f8f9fa; color: var(--primary-color); padding: 10px 20px; font-size: 0.9rem;">
+                            <i class="fas fa-map"></i> Voir sur OpenStreetMap
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="horaires animate-on-scroll">
+                    <h3>Horaires d'ouverture</h3>
+                    <p>La mairie est ouverte au public aux horaires suivants :</p>
+                    
+                    <table class="horaires-table">
+                        <thead>
+                            <tr>
+                                <th>Jour</th>
+                                <th>Matin</th>
+                                <th>Après-midi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Lundi</td>
+                                <td>8h00 - 12h30</td>
+                                <td>14h00 - 17h30</td>
+                            </tr>
+                            <tr>
+                                <td>Mardi</td>
+                                <td>8h00 - 12h30</td>
+                                <td>14h00 - 17h30</td>
+                            </tr>
+                            <tr>
+                                <td>Mercredi</td>
+                                <td>8h00 - 12h30</td>
+                                <td>14h00 - 17h30</td>
+                            </tr>
+                            <tr>
+                                <td>Jeudi</td>
+                                <td>8h00 - 12h30</td>
+                                <td>14h00 - 17h30</td>
+                            </tr>
+                            <tr>
+                                <td>Vendredi</td>
+                                <td>8h00 - 12h30</td>
+                                <td>14h00 - 16h30</td>
+                            </tr>
+                            <tr>
+                                <td>Samedi</td>
+                                <td>9h00 - 13h00</td>
+                                <td>Fermé</td>
+                            </tr>
+                            <tr>
+                                <td>Dimanche</td>
+                                <td colspan="2">Fermé</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p style="margin-top: 20px; font-style: italic;">Fermetures exceptionnelles : les jours fériés et le 14 juillet (fête nationale).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulaire de Contact -->
+    <section class="contact-form-section">
+        <div class="container">
+            <h2 class="section-title">Envoyez-nous un message</h2>
+            <div class="form-container animate-on-scroll">
+                <div class="alert alert-success" id="successMessage" style="display: none;"></div>
+                <div class="alert alert-error" id="errorMessage" style="display: none;"></div>
+                <div class="alert alert-warning" id="warningMessage" style="display: none;"></div>
+                
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nom">Nom *</label>
+                            <input type="text" id="nom" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom">Prénom *</label>
+                            <input type="text" id="prenom" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">Téléphone</label>
+                            <input type="tel" id="telephone" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adresse">Adresse</label>
+                        <input type="text" id="adresse" class="form-control" placeholder="Votre adresse à Saint-Louis">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Service concerné *</label>
+                        <select id="service" class="form-control" required>
+                            <option value="">Sélectionnez un service</option>
+                            <option value="État Civil">État Civil</option>
+                            <option value="Urbanisme">Urbanisme</option>
+                            <option value="Propreté et Environnement">Propreté et Environnement</option>
+                            <option value="Marchés et Commerces">Marchés et Commerces</option>
+                            <option value="Culture et Patrimoine">Culture et Patrimoine</option>
+                            <option value="Sports et Loisirs">Sports et Loisirs</option>
+                            <option value="Affaires Sociales">Affaires Sociales</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sujet">Sujet *</label>
+                        <input type="text" id="sujet" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" class="form-control" rows="6" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="newsletter" checked> M'abonner à la newsletter municipale
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Mairie de Saint-Louis</h3>
+                    <p>Première ville française d'Afrique de l'Ouest, classée au patrimoine mondial de l'UNESCO.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Liens utiles</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="ville.html">La Ville</a></li>
+                        <li><a href="mairie.html">La Mairie</a></li>
+                        <li><a href="demarches.html">Démarches en ligne</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact rapide</h4>
+                    <p><i class="fas fa-phone"></i> +221 33 961 10 10</p>
+                    <p><i class="fas fa-envelope"></i> o.ndiaye@bcmgroupe.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Place Faidherbe, Île de Saint-Louis</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Mairie de Saint-Louis /BCMGROUP</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bouton retour en haut -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // Configuration EmailJS
+        // REMPLACEZ 'YOUR_PUBLIC_KEY' par votre clé publique EmailJS
+        (function() {
+            emailjs.init('YOUR_PUBLIC_KEY'); // ← REMPLACEZ ICI
+        })();
+
+        // Document ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header Slider
+            const headerSliderTrack = document.getElementById('headerSliderTrack');
+            const headerSlides = document.querySelectorAll('.header-slider .slider-slide');
+            const headerDotsContainer = document.getElementById('headerSliderDots');
+            
+            let headerCurrentSlide = 0;
+            const headerTotalSlides = headerSlides.length;
+            
+            // Créer les points pour le header slider
+            if (headerDotsContainer && headerTotalSlides > 0) {
+                for (let i = 0; i < headerTotalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('slider-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.dataset.index = i;
+                    headerDotsContainer.appendChild(dot);
+                }
+                
+                const headerDots = document.querySelectorAll('.slider-dot');
+                
+                function updateHeaderSlider() {
+                    headerSliderTrack.style.transform = `translateX(-${headerCurrentSlide * 100}%)`;
+                    
+                    // Mettre à jour les points actifs
+                    headerDots.forEach(dot => dot.classList.remove('active'));
+                    headerDots[headerCurrentSlide].classList.add('active');
+                }
+                
+                // Navigation avec points pour le header
+                headerDots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        headerCurrentSlide = parseInt(dot.dataset.index);
+                        updateHeaderSlider();
+                    });
+                });
+                
+                // Défilement automatique pour le header slider
+                let headerAutoplay = setInterval(() => {
+                    headerCurrentSlide = (headerCurrentSlide + 1) % headerTotalSlides;
+                    updateHeaderSlider();
+                }, 4000);
+                
+                // Pause au survol
+                headerSliderTrack.addEventListener('mouseenter', () => clearInterval(headerAutoplay));
+                headerSliderTrack.addEventListener('mouseleave', () => {
+                    headerAutoplay = setInterval(() => {
+                        headerCurrentSlide = (headerCurrentSlide + 1) % headerTotalSlides;
+                        updateHeaderSlider();
+                    }, 4000);
+                });
+            }
+            
+            // Menu mobile
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('active');
+                    this.innerHTML = mobileMenu.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : 
+                        '<i class="fas fa-bars"></i>';
+                });
+
+                // Fermer le menu au clic sur un lien
+                document.querySelectorAll('.mobile-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+            }
+
+            // Animation au scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observer les éléments à animer
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Bouton retour en haut
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            if (backToTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                });
+
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // Soumission du formulaire de contact
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (contactForm && submitBtn) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Cacher les messages précédents
+                    document.getElementById('successMessage').style.display = 'none';
+                    document.getElementById('errorMessage').style.display = 'none';
+                    document.getElementById('warningMessage').style.display = 'none';
+                    
+                    // Désactiver le bouton et afficher le loader
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('btn-loading');
+                    submitBtn.textContent = '';
+                    
+                    // Collecter les données du formulaire
+                    const nom = document.getElementById('nom').value;
+                    const prenom = document.getElementById('prenom').value;
+                    const email = document.getElementById('email').value;
+                    const telephone = document.getElementById('telephone').value;
+                    const adresse = document.getElementById('adresse').value;
+                    const service = document.getElementById('service').value;
+                    const sujet = document.getElementById('sujet').value;
+                    const message = document.getElementById('message').value;
+                    const newsletter = document.getElementById('newsletter').checked;
+                    
+                    // Validation basique
+                    if (!nom || !prenom || !email || !service || !sujet || !message) {
+                        showError("Veuillez remplir tous les champs obligatoires (*)");
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('btn-loading');
+                        submitBtn.textContent = 'Envoyer le message';
+                        return;
+                    }
+                    
+                    // Option 1: Utiliser EmailJS (recommandé)
+                    // Décommentez cette section et configurez EmailJS
+                    /*
+                    const formData = {
+                        from_name: `${nom} ${prenom}`,
+                        from_email: email,
+                        from_phone: telephone || 'Non spécifié',
+                        from_address: adresse || 'Non spécifiée',
+                        service: service,
+                        subject: sujet,
+                        message: message,
+                        newsletter: newsletter ? 'Oui' : 'Non',
+                        date: new Date().toLocaleString('fr-FR'),
+                        to_email: 'o.ndiaye@bcmgroupe.com',
+                        location: 'Saint-Louis, Sénégal'
+                    };
+                    
+                    // Configuration EmailJS - REMPLACEZ CES VALEURS
+                    const serviceID = 'YOUR_SERVICE_ID'; // ← REMPLACEZ
+                    const templateID = 'YOUR_TEMPLATE_ID'; // ← REMPLACEZ
+                    
+                    // Envoyer avec EmailJS
+                    emailjs.send(serviceID, templateID, formData)
+                    .then(function(response) {
+                        console.log('Email envoyé avec succès!', response);
+                        showSuccess();
+                        contactForm.reset();
+                    })
+                    .catch(function(error) {
+                        console.log('Erreur EmailJS:', error);
+                        showError("Erreur d'envoi. Utilisez l'option mailto ci-dessous.");
+                        showMailtoAlternative(nom, prenom, email, telephone, service, sujet, message);
+                    })
+                    .finally(function() {
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('btn-loading');
+                        submitBtn.textContent = 'Envoyer le message';
+                    });
+                    */
+                    
+                    // Option 2: Mailto (fonctionne sans EmailJS)
+                    // Pour l'instant, utilisons mailto comme solution de secours
+                    setTimeout(() => {
+                        sendViaMailto(nom, prenom, email, telephone, adresse, service, sujet, message, newsletter);
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('btn-loading');
+                        submitBtn.textContent = 'Envoyer le message';
+                    }, 1000);
+                });
+            }
+
+            // Fonction pour envoyer via mailto
+            function sendViaMailto(nom, prenom, email, telephone, adresse, service, sujet, message, newsletter) {
+                const subject = `[Mairie Saint-Louis] ${sujet} - Service: ${service}`;
+                const body = `
+Nom: ${nom} ${prenom}
+Email: ${email}
+Téléphone: ${telephone || 'Non spécifié'}
+Adresse: ${adresse || 'Non spécifiée'}
+Service concerné: ${service}
+
+Message:
+${message}
+
+---
+Newsletter: ${newsletter ? 'Oui' : 'Non'}
+Envoyé depuis le formulaire de contact du site Mairie de Saint-Louis
+Date: ${new Date().toLocaleString('fr-FR')}
+                `;
+                
+                const mailtoLink = `mailto:o.ndiaye@bcmgroupe.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Ouvrir le client email
+                window.open(mailtoLink, '_blank');
+                
+                // Afficher le message de succès
+                showSuccess("Votre client email s'ouvre. Composez et envoyez le message.");
+            }
+
+            // Fonctions d'affichage des messages
+            function showSuccess(message = "Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.") {
+                const successMessage = document.getElementById('successMessage');
+                successMessage.innerHTML = `
+                    <strong><i class="fas fa-check-circle"></i> Succès !</strong><br>
+                    ${message}
+                `;
+                successMessage.style.display = 'block';
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Cacher après 7 secondes
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 7000);
+            }
+
+            function showError(message) {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.innerHTML = `
+                    <strong><i class="fas fa-exclamation-triangle"></i> Erreur !</strong><br>
+                    ${message}
+                `;
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function showMailtoAlternative(nom, prenom, email, telephone, service, sujet, message) {
+                const warningMessage = document.getElementById('warningMessage');
+                warningMessage.innerHTML = `
+                    <strong><i class="fas fa-info-circle"></i> Solution alternative :</strong><br>
+                    Vous pouvez nous contacter directement par email à o.ndiaye@bcmgroupe.com<br>
+                    ou par téléphone au +221 33 961 10 10
+                `;
+                warningMessage.style.display = 'block';
+            }
+
+            // Smooth scroll pour les ancres
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Instructions pour configurer EmailJS
+            console.log(`
+=== INSTRUCTIONS POUR CONFIGURER EMAILJS ===
+
+1. Allez sur https://www.emailjs.com/ et créez un compte gratuit
+2. Ajoutez votre service email (Gmail, Outlook, etc.)
+3. Créez un template d'email avec ces variables :
+   - {{from_name}}
+   - {{from_email}}
+   - {{from_phone}}
+   - {{from_address}}
+   - {{service}}
+   - {{subject}}
+   - {{message}}
+   - {{newsletter}}
+   - {{date}}
+   - {{to_email}}
+   - {{location}}
+
+4. Récupérez vos identifiants :
+   - Public Key (dans Account > API Keys)
+   - Service ID (dans Email Services)
+   - Template ID (dans Email Templates)
+
+5. Remplacez dans le code :
+   - Ligne 939 : emailjs.init('YOUR_PUBLIC_KEY')
+   - Ligne 1050 : const serviceID = 'YOUR_SERVICE_ID'
+   - Ligne 1051 : const templateID = 'YOUR_TEMPLATE_ID'
+
+6. Décommentez la section EmailJS (lignes 1039-1070)
+
+=== POUR LE MOMENT, LE FORMULAIRE UTILISE MAILTO ===
+`);
+        });
+    </script>
+</body>
+</html>

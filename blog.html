@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Actualités - Mairie de Saint-Louis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --secondary-color: #3c6382;
+            --accent-color: #f6b93b;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --card-radius: 12px;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            font-size: 15px;
+            background-image: 
+                linear-gradient(rgba(245, 247, 250, 0.95), rgba(245, 247, 250, 0.95)),
+                url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%230a3d62" fill-opacity="0.03"%3E%3Cpath d="M0 0h40v40H0V0zm40 40h40v40H40V40z"/%3E%3C/g%3E%3C/svg%3E');
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* HEADER RÉDUIT */
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            color: var(--dark-color);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            height: 65px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark-color);
+        }
+
+        .logo-image {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            
+        }
+
+        .logo-img {
+            width: 180%;
+            height: 130%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .logo-text h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--primary-color);
+        }
+
+        .logo-text span {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            opacity: 0.9;
+            margin-top: 1px;
+            color: var(--secondary-color);
+        }
+
+        /* Navbar Desktop compacte */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2px;
+            padding: 4px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .desktop-nav ul li {
+            position: relative;
+        }
+
+        .desktop-nav ul li a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .desktop-nav ul li a:hover {
+            background: rgba(10, 61, 98, 0.08);
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .desktop-nav ul li a.active {
+            background: linear-gradient(135deg, var(--accent-color), #ffd166);
+            color: var(--dark-color);
+            box-shadow: 0 3px 8px rgba(246, 185, 59, 0.2);
+            font-weight: 700;
+        }
+
+        /* Bouton menu mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            box-shadow: 0 3px 8px rgba(10, 61, 98, 0.15);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Menu mobile */
+        .mobile-menu {
+            display: none;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 8px;
+        }
+
+        .mobile-menu ul li {
+            margin: 3px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .mobile-menu ul li a {
+            display: block;
+            padding: 14px 16px;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .mobile-menu ul li a:hover,
+        .mobile-menu ul li a.active {
+            background: linear-gradient(135deg, rgba(10, 61, 98, 0.1), rgba(60, 99, 130, 0.1));
+            color: var(--primary-color);
+            padding-left: 20px;
+        }
+
+        /* Hero Section */
+        .blog-hero {
+            background: 
+                linear-gradient(rgba(10, 61, 98, 0.85), rgba(8, 49, 78, 0.9)),
+                url('https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(246, 185, 59, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .blog-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blog-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .blog-hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 2.5rem;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Filtres de catégories */
+        .blog-filters {
+            padding: 2.5rem 0;
+            background: rgba(248, 249, 250, 0.95);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .filter-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            color: #666;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(10, 61, 98, 0.1);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(10, 61, 98, 0.2);
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(246, 185, 59, 0.1);
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .search-box button:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Section Articles Populaires */
+        .featured-articles {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            position: relative;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        /* AJOUTÉ : Style pour le bouton Voir Plus */
+        .see-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .see-more-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(10, 61, 98, 0.2);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (min-width: 992px) {
+            .featured-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .featured-main {
+            background: white;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .featured-main:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-main-image {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .featured-main:hover .featured-main-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-main-content {
+            padding: 30px;
+        }
+
+        .featured-main-category {
+            display: inline-block;
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #3c6382, #60a3bc);
+        }
+
+        .featured-main-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+
+        .featured-main-content p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .featured-main-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .featured-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .featured-side {
+            background: white;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-side:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-side-image {
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .featured-side-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .featured-side:hover .featured-side-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-side-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-side-content h4 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            line-height: 1.3;
+            flex-grow: 1;
+        }
+
+        .featured-side-date {
+            color: var(--secondary-color);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .featured-side-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: auto;
+        }
+
+        .featured-side-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Section Articles Principaux */
+        .blog-articles {
+            padding: 3rem 0;
+            background: white;
+        }
+
+        .blog-articles .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .blog-articles .section-title::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: rgba(10, 61, 98, 0.1);
+        }
+
+        .blog-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .blog-category.news {
+            background: linear-gradient(135deg, #ff9f43, #ffaf60);
+        }
+
+        .blog-category.event {
+            background: linear-gradient(135deg, #3c6382, #60a3bc);
+        }
+
+        .blog-category.project {
+            background: linear-gradient(135deg, #2c3e50, #4a69bd);
+        }
+
+        .blog-category.heritage {
+            background: linear-gradient(135deg, #6a89cc, #82ccdd);
+        }
+
+        .blog-category.culture {
+            background: linear-gradient(135deg, #e55039, #fa983a);
+        }
+
+        .blog-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-date {
+            color: var(--secondary-color);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .blog-date i {
+            color: var(--accent-color);
+        }
+
+        .blog-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            line-height: 1.3;
+            flex-grow: 1;
+            transition: color 0.3s;
+        }
+
+        .blog-card:hover .blog-content h3 {
+            color: var(--accent-color);
+        }
+
+        .blog-content p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 3px 8px rgba(10, 61, 98, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover .author-avatar {
+            transform: scale(1.1);
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .read-more::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .read-more:hover::after {
+            width: 100%;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+            gap: 12px;
+        }
+
+        /* Pagination améliorée */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 3rem;
+        }
+
+        .page-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: var(--border-radius);
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .page-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(10, 61, 98, 0.2);
+        }
+
+        .page-link.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(10, 61, 98, 0.3);
+        }
+
+        .page-link.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .page-link.prev,
+        .page-link.next {
+            width: auto;
+            padding: 0 20px;
+            gap: 8px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(10, 61, 98, 0.95), rgba(8, 49, 78, 0.97)),
+                        url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(246, 185, 59, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .newsletter-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1.2rem;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .newsletter p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .newsletter-form {
+                flex-direction: row;
+            }
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 16px 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(246, 185, 59, 0.2);
+        }
+
+        .newsletter-form button {
+            background: linear-gradient(135deg, var(--accent-color), #ffd166);
+            color: var(--dark-color);
+            padding: 16px 30px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(246, 185, 59, 0.3);
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(246, 185, 59, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), #1a252f);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-logo h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .footer-logo p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after,
+        .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        .footer-contact i {
+            width: 18px;
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        /* Animation des cartes */
+        .blog-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-card:nth-child(1) { animation-delay: 0.1s; }
+        .blog-card:nth-child(2) { animation-delay: 0.2s; }
+        .blog-card:nth-child(3) { animation-delay: 0.3s; }
+        .blog-card:nth-child(4) { animation-delay: 0.4s; }
+        .blog-card:nth-child(5) { animation-delay: 0.5s; }
+        .blog-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .logo-image {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 0.9rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.65rem;
+            }
+            
+            .blog-hero {
+                padding: 4rem 1rem;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .hero-stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .filter-tabs {
+                gap: 8px;
+            }
+            
+            .filter-tab {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .featured-main-image {
+                height: 250px;
+            }
+            
+            .featured-main-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .see-more-btn {
+                align-self: flex-start;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                padding: 0 20px;
+            }
+            
+            .blog-hero {
+                padding: 6rem 2rem;
+            }
+            
+            .blog-hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--accent-color), var(--primary-color));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(10, 61, 98, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header compact -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-image">
+                    <img src="images/logomairi2.png" alt="Logo Mairie de Saint-Louis" class="logo-img">
+                </div>
+                <div class="logo-text">
+                    <h1>Mairie de <span>Saint-Louis</span></h1>
+                    <p>Sénégal - Patrimoine UNESCO</p>
+                </div>
+            </a>
+            
+            <!-- Navbar Desktop -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="ville.html">Patrimoine</a></li>
+                    <li><a href="mairie.html">La Ville</a></li>
+                    <li><a href="demarches.html">Démarches</a></li>
+                    <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Bouton menu mobile -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Menu mobile -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="ville.html">Patrimoine</a></li>
+                <li><a href="mairie.html">La Ville</a></li>
+                <li><a href="demarches.html">Démarches</a></li>
+                <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-hero-content">
+                <h1>Blog & Actualités</h1>
+                <p>Restez informé des dernières nouvelles, événements et projets de la Mairie de Saint-Louis. Découvrez la vie de votre ville à travers nos articles.</p>
+                <a href="#articles" class="btn" style="background: var(--accent-color); color: var(--dark-color); padding: 14px 30px; text-decoration: none; border-radius: var(--border-radius); font-weight: 700; display: inline-block; margin-top: 15px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(246, 185, 59, 0.3);">
+                    <i class="fas fa-newspaper"></i> Explorer les articles
+                </a>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">150+</div>
+                        <div class="hero-stat-label">Articles publiés</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">5</div>
+                        <div class="hero-stat-label">Catégories</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">25k+</div>
+                        <div class="hero-stat-label">Lecteurs mensuels</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtres de catégories -->
+    <section class="blog-filters">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-tabs" id="filterTabs">
+                    <div class="filter-tab active" data-category="all">
+                        <i class="fas fa-th"></i> Tous les articles
+                    </div>
+                    <div class="filter-tab" data-category="news">
+                        <i class="fas fa-bullhorn"></i> Actualités
+                    </div>
+                    <div class="filter-tab" data-category="event">
+                        <i class="fas fa-calendar-alt"></i> Événements
+                    </div>
+                    <div class="filter-tab" data-category="project">
+                        <i class="fas fa-project-diagram"></i> Projets
+                    </div>
+                    <div class="filter-tab" data-category="heritage">
+                        <i class="fas fa-landmark"></i> Patrimoine
+                    </div>
+                    <div class="filter-tab" data-category="culture">
+                        <i class="fas fa-music"></i> Culture
+                    </div>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Rechercher un article...">
+                    <button id="searchButton">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Populaires avec bouton Voir Plus -->
+    <section class="featured-articles">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Articles Populaires</h2>
+                <a href="#all-articles" class="see-more-btn">
+                    <span>Tous les articles populaires</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-main">
+                    <div class="featured-main-image">
+                        <img src="images/jazz.jpg" alt="Festival de Jazz">
+                    </div>
+                    <div class="featured-main-content">
+                        <div class="featured-main-category">Événement</div>
+                        <h3>Festival de Jazz 2024 : Une édition historique à ne pas manquer</h3>
+                        <p>La 31ème édition du Festival International de Jazz de Saint-Louis promet d'être mémorable avec des artistes de renommée mondiale et des performances exclusives. Découvrez le programme complet, les lieux de concert et comment obtenir vos billets.</p>
+                        <div class="featured-main-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">MD</div>
+                                <div>
+                                    <div style="font-weight: 600;">Moussa Diallo</div>
+                                    <div style="font-size: 0.8rem; color: #888;">Journaliste culturel</div>
+                                </div>
+                            </div>
+                            <a href="#" class="read-more">
+                                Lire l'article complet 
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="featured-sidebar">
+                    <div class="featured-side">
+                        <div class="featured-side-image">
+                            <img src="images/pont.jpg" alt="Pont Faidherbe">
+                        </div>
+                        <div class="featured-side-content">
+                            <h4>Rénovation du Pont Faidherbe : Travaux en cours pour préserver ce monument historique</h4>
+                            <div class="featured-side-date">
+                                <i class="far fa-calendar"></i> 12 Mars 2024
+                            </div>
+                            <a href="#" class="featured-side-link">
+                                Voir plus <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-side">
+                        <div class="featured-side-image">
+                            <img src="images/ndart.jpeg" alt="Marché de Guet Ndar">
+                        </div>
+                        <div class="featured-side-content">
+                            <h4>Le nouveau marché de Guet Ndar : Retour positif après 3 mois d'activité</h4>
+                            <div class="featured-side-date">
+                                <i class="far fa-calendar"></i> 28 Février 2024
+                            </div>
+                            <a href="#" class="featured-side-link">
+                                Voir plus <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-side">
+                        <div class="featured-side-image">
+                            <img src="images/environnement.jpg" alt="Projet environnemental">
+                        </div>
+                        <div class="featured-side-content">
+                            <h4>Plan de reboisement : 1000 arbres plantés dans le quartier Sud</h4>
+                            <div class="featured-side-date">
+                                <i class="far fa-calendar"></i> 15 Février 2024
+                            </div>
+                            <a href="#" class="featured-side-link">
+                                Voir plus <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Articles Principaux avec bouton Voir Plus -->
+    <section class="blog-articles" id="all-articles">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tous les Articles</h2>
+                <a href="#articles" class="see-more-btn">
+                    <span>Voir plus d'articles</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="blog-grid" id="blogGrid">
+                <!-- Article 1 -->
+                <article class="blog-card" data-category="event">
+                    <div class="blog-image">
+                        <img src="images/jazz.jpg" alt="Festival de Jazz">
+                        <div class="blog-category event">Événement</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">
+                            <i class="far fa-calendar"></i> 15-20 Novembre 2024
+                            <span style="margin-left: auto;"><i class="far fa-clock"></i> 5 min</span>
+                        </div>
+                        <h3>Festival de Jazz 2024 : Programme dévoilé</h3>
+                        <p>Découvrez le programme complet de la 31ème édition du Festival International de Jazz avec des artistes exceptionnels.</p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">MD</div>
+                                <span>Moussa Diallo</span>
+                            </div>
+                            <a href="#" class="read-more">Lire <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Article 2 -->
+                <article class="blog-card" data-category="project">
+                    <div class="blog-image">
+                        <img src="images/rose.jpg" alt="Réhabilitation patrimoine">
+                        <div class="blog-category project">Projet</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">
+                            <i class="far fa-calendar"></i> 10 Mars 2024
+                            <span style="margin-left: auto;"><i class="far fa-clock"></i> 7 min</span>
+                        </div>
+                        <h3>Réhabilitation des façades historiques : Phase 2</h3>
+                        <p>La deuxième phase du projet de réhabilitation du centre historique est lancée avec de nouvelles subventions disponibles.</p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">AF</div>
+                                <span>Amadou Fall</span>
+                            </div>
+                            <a href="#" class="read-more">Lire <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Article 3 -->
+                <article class="blog-card" data-category="news">
+                    <div class="blog-image">
+                        <img src="images/ndart.jpeg" alt="Nouveau marché">
+                        <div class="blog-category news">Actualité</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">
+                            <i class="far fa-calendar"></i> 1er Mars 2024
+                            <span style="margin-left: auto;"><i class="far fa-clock"></i> 4 min</span>
+                        </div>
+                        <h3>Marché de Guet Ndar : Satisfaction générale</h3>
+                        <p>Retour sur les premiers mois d'activité du nouveau marché moderne qui a transformé le quotidien des commerçants et clients.</p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">FN</div>
+                                <span>Fatou Ndiaye</span>
+                            </div>
+                            <a href="#" class="read-more">Lire <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Article 4 -->
+                <article class="blog-card" data-category="heritage">
+                    <div class="blog-image">
+                        <img src="images/pont.jpg" alt="Pont Faidherbe">
+                        <div class="blog-category heritage">Patrimoine</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">
+                            <i class="far fa-calendar"></i> 25 Février 2024
+                            <span style="margin-left: auto;"><i class="far fa-clock"></i> 8 min</span>
+                        </div>
+                        <h3>Pont Faidherbe : 121 ans d'histoire</h3>
+                        <p>Plongez dans l'histoire fascinante de ce pont emblématique qui relie l'île de Saint-Louis au continent depuis 1903.</p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">CS</div>
+                                <span>Cheikh Sow</span>
+                            </div>
+                            <a href="#" class="read-more">Lire <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Article 5 -->
+                <article class="blog-card" data-category="culture">
+                    <div class="blog-image">
+                        <img src="images/culture.jpg" alt="Festival culturel">
+                        <div class="blog-category culture">Culture</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">
+                            <i class="far fa-calendar"></i> 15 Février 2024
+                            <span style="margin-left: auto;"><i class="far fa-clock"></i> 6 min</span>
+                        </div>
+                        <h3>Semaine culturelle : Traditions vivantes</h3>
+                        <p>Un événement qui célèbre la richesse culturelle saint-louisienne à travers musique, danse, cuisine et artisanat.</p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">AS</div>
+                                <span>Aminata Seck</span>
+                            </div>
+                            <a href="#" class="read-more">Lire <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Article 6 -->
+                <article class="blog-card" data-category="project">
+                    <div class="blog-image">
+                        <img src="images/environnement.jpg" alt="Projet environnemental">
+                        <div class="blog-category project">Projet</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">
+                            <i class="far fa-calendar"></i> 5 Février 2024
+                            <span style="margin-left: auto;"><i class="far fa-clock"></i> 9 min</span>
+                        </div>
+                        <h3>Plan Vert 2024-2029 : Ambitieux et réaliste</h3>
+                        <p>Détails du nouveau plan de développement durable qui vise à faire de Saint-Louis une ville écologique exemplaire.</p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">BS</div>
+                                <span>Baba Sy</span>
+                            </div>
+                            <a href="#" class="read-more">Lire <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link prev disabled">
+                    <i class="fas fa-chevron-left"></i> Précédent
+                </a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">4</a>
+                <a href="#" class="page-link">5</a>
+                <a href="#" class="page-link next">
+                    Suivant <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-container">
+                <h2>Ne manquez aucune actualité</h2>
+                <p>Abonnez-vous à notre newsletter pour recevoir les dernières nouvelles, événements et projets directement dans votre boîte email.</p>
+                
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> S'abonner
+                    </button>
+                </form>
+                
+                <p style="font-size: 0.9rem; margin-top: 20px; color: rgba(255,255,255,0.8);">
+                    <i class="fas fa-shield-alt"></i>
+                    Nous respectons votre vie privée. Désabonnement possible à tout moment.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Mairie de Saint-Louis</h3>
+                    <p>Première ville française d'Afrique de l'Ouest, classée au patrimoine mondial de l'UNESCO depuis l'an 2000. Héritage, culture et modernité.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+                        <li><a href="ville.html"><i class="fas fa-landmark"></i> Patrimoine</a></li>
+                        <li><a href="mairie.html"><i class="fas fa-university"></i> La Ville</a></li>
+                        
+                        <li><a href="demarches.html"><i class="fas fa-file-alt"></i> Démarches</a></li>
+                        <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone"></i> +221 33 961 10 10</p>
+                    <p><i class="fas fa-envelope"></i> contact@mairie-saintlouis.sn</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Place Faidherbe, Île de Saint-Louis</p>
+                    <p><i class="fas fa-clock"></i> Lundi-Vendredi: 8h-16h</p>
+                    <p><i class="fas fa-print"></i> +221 33 961 10 11</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Mairie de Saint-Louis - Tous droits réservés</p>
+                <p style="margin-top: 8px; font-size: 0.85rem; color: #888;">
+                    Site développé avec <i class="fas fa-heart" style="color: #ff6b6b;"></i> par BCM group
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                this.innerHTML = mobileMenu.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : 
+                    '<i class="fas fa-bars"></i>';
+            });
+
+            // Fermer le menu mobile
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+
+            // Filtrage des articles
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const blogCards = document.querySelectorAll('.blog-card');
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Animation du clic
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Mettre à jour l'onglet actif
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const selectedCategory = this.getAttribute('data-category');
+                    
+                    // Filtrer avec animation
+                    blogCards.forEach((card, index) => {
+                        const cardCategory = card.getAttribute('data-category');
+                        
+                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                            card.style.display = 'flex';
+                            setTimeout(() => {
+                                card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s forwards`;
+                            }, 50);
+                        } else {
+                            card.style.animation = 'none';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Recherche d'articles
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (searchTerm) {
+                    searchButton.innerHTML = '<div class="loading"></div>';
+                }
+                
+                setTimeout(() => {
+                    blogCards.forEach((card, index) => {
+                        const title = card.querySelector('h3').textContent.toLowerCase();
+                        const excerpt = card.querySelector('p').textContent.toLowerCase();
+                        const category = card.querySelector('.blog-category').textContent.toLowerCase();
+                        
+                        if (searchTerm === '' || 
+                            title.includes(searchTerm) || 
+                            excerpt.includes(searchTerm) ||
+                            category.includes(searchTerm)) {
+                            
+                            card.style.display = 'flex';
+                            setTimeout(() => {
+                                card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s forwards`;
+                            }, 50);
+                        } else {
+                            card.style.animation = 'none';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                    
+                    searchButton.innerHTML = '<i class="fas fa-search"></i>';
+                    
+                    // Afficher un message si aucun résultat
+                    const visibleCards = Array.from(blogCards).filter(card => 
+                        card.style.display !== 'none'
+                    );
+                    
+                    if (visibleCards.length === 0 && searchTerm !== '') {
+                        const noResults = document.createElement('div');
+                        noResults.className = 'no-results';
+                        noResults.innerHTML = `
+                            <div style="text-align: center; padding: 60px 20px; grid-column: 1 / -1;">
+                                <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
+                                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Aucun résultat trouvé</h3>
+                                <p style="color: #666;">Essayez d'autres mots-clés ou explorez nos catégories.</p>
+                            </div>
+                        `;
+                        
+                        if (!document.querySelector('.no-results')) {
+                            document.getElementById('blogGrid').appendChild(noResults);
+                        }
+                    } else {
+                        const existingNoResults = document.querySelector('.no-results');
+                        if (existingNoResults) {
+                            existingNoResults.remove();
+                        }
+                    }
+                }, 500);
+            }
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Newsletter avec feedback
+            const newsletterForm = document.getElementById('newsletterForm');
+            
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                const submitBtn = this.querySelector('button');
+                const email = emailInput.value.trim();
+                
+                if (validateEmail(email)) {
+                    const originalText = submitBtn.innerHTML;
+                    
+                    // Animation de chargement
+                    submitBtn.innerHTML = '<div class="loading"></div>';
+                    submitBtn.disabled = true;
+                    
+                    // Simulation d'envoi
+                    setTimeout(() => {
+                        // Succès
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'success-message';
+                        successMessage.innerHTML = `
+                            <div style="background: rgba(46, 204, 113, 0.2); border: 2px solid #2ecc71; border-radius: var(--border-radius); padding: 20px; margin-top: 20px; text-align: center; animation: fadeInUp 0.5s;">
+                                <i class="fas fa-check-circle" style="color: #2ecc71; font-size: 2rem; margin-bottom: 10px;"></i>
+                                <h4 style="color: white; margin-bottom: 10px;">Inscription réussie !</h4>
+                                <p style="color: rgba(255,255,255,0.9);">Merci ! Vous recevrez bientôt nos actualités.</p>
+                            </div>
+                        `;
+                        
+                        newsletterForm.parentNode.insertBefore(successMessage, newsletterForm.nextSibling);
+                        
+                        // Reset du formulaire
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        emailInput.value = '';
+                        
+                        // Supprimer le message après 5 secondes
+                        setTimeout(() => {
+                            successMessage.remove();
+                        }, 5000);
+                    }, 1500);
+                } else {
+                    // Animation d'erreur
+                    emailInput.style.borderColor = '#e74c3c';
+                    emailInput.style.boxShadow = '0 0 0 3px rgba(231, 76, 60, 0.2)';
+                    
+                    setTimeout(() => {
+                        emailInput.style.borderColor = '';
+                        emailInput.style.boxShadow = '';
+                    }, 2000);
+                }
+            });
+            
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            // Animation au défilement
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observer les éléments à animer
+            document.querySelectorAll('.featured-main, .featured-side, .blog-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+
+            // Smooth scroll pour les boutons Voir Plus
+            document.querySelectorAll('.see-more-btn, .featured-side-link, .read-more').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') && this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Pagination interactive
+            const pageLinks = document.querySelectorAll('.page-link:not(.prev):not(.next)');
+            const prevBtn = document.querySelector('.page-link.prev');
+            const nextBtn = document.querySelector('.page-link.next');
+            let currentPage = 1;
+            
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    if (this.classList.contains('active')) return;
+                    
+                    // Animation
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Mettre à jour la page active
+                    pageLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    currentPage = parseInt(this.textContent);
+                    
+                    // Mettre à jour les boutons précédent/suivant
+                    updatePaginationButtons();
+                    
+                    // Simuler le chargement de la page
+                    simulatePageLoad(currentPage);
+                });
+            });
+            
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateActivePage();
+                    simulatePageLoad(currentPage);
+                }
+            });
+            
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage < 5) {
+                    currentPage++;
+                    updateActivePage();
+                    simulatePageLoad(currentPage);
+                }
+            });
+            
+            function updateActivePage() {
+                pageLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (parseInt(link.textContent) === currentPage) {
+                        link.classList.add('active');
+                    }
+                });
+                updatePaginationButtons();
+            }
+            
+            function updatePaginationButtons() {
+                prevBtn.classList.toggle('disabled', currentPage === 1);
+                nextBtn.classList.toggle('disabled', currentPage === 5);
+            }
+            
+            function simulatePageLoad(page) {
+                const blogGrid = document.getElementById('blogGrid');
+                blogGrid.style.opacity = '0.5';
+                blogGrid.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    blogGrid.style.opacity = '1';
+                    blogGrid.style.transform = 'translateY(0)';
+                    blogGrid.style.transition = 'all 0.5s ease';
+                    
+                    // Réanimer les cartes
+                    blogCards.forEach((card, index) => {
+                        card.style.animation = 'none';
+                        setTimeout(() => {
+                            card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s forwards`;
+                        }, 50);
+                    });
+                }, 300);
+            }
+
+            // Effet de survol amélioré pour les cartes
+            blogCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = ((x - centerX) / centerX) * 1;
+                    const rotateX = ((centerY - y) / centerY) * 1;
+                    
+                    card.style.transform = `
+                        translateY(-10px)
+                        rotateX(${rotateX}deg)
+                        rotateY(${rotateY}deg)
+                    `;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+                });
+            });
+
+            // Gestion du scroll pour le header
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 100) {
+                    document.querySelector('header').style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+                    document.querySelector('header').style.backdropFilter = 'blur(20px)';
+                } else {
+                    document.querySelector('header').style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
+                    document.querySelector('header').style.backdropFilter = 'blur(10px)';
+                }
+                
+                lastScroll = currentScroll;
+            });
+
+            // Animation des boutons Voir Plus au survol
+            document.querySelectorAll('.see-more-btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
