@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Mairie de Saint-Louis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root {
             --primary-color: #0a3d62;
@@ -41,7 +39,7 @@
             padding: 0 20px;
         }
 
-        /* Header avec navbar en fond blanc */
+        /* Header avec navbar compacte */
         header {
             background: white;
             color: var(--dark-color);
@@ -49,7 +47,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
@@ -57,28 +55,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            height: 80px;
+            padding: 0 15px;
+            height: 70px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             text-decoration: none;
             color: var(--dark-color);
         }
 
         .logo-image {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            padding: 8px;
-            border: 1px solid rgba(0,0,0,0.1);
+            padding: 6px;
+            border: 1px solid rgba(0,0,0,0.08);
         }
 
         .logo-img {
@@ -93,10 +91,9 @@
         }
 
         .logo-text h1 {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            line-height: 1.2;
-            margin-left: 10px;
+            line-height: 1.1;
             color: var(--primary-color);
         }
 
@@ -106,10 +103,9 @@
         }
 
         .logo-text p {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             opacity: 0.8;
-            margin-top: 2px;
-            margin-left: 10px;
+            margin-top: 1px;
             color: var(--secondary-color);
         }
 
@@ -201,7 +197,7 @@
             transform: scale(1.3);
         }
 
-        /* Navbar Desktop - Toujours visible */
+        /* Navbar Desktop Compacte */
         .desktop-nav {
             display: flex;
             align-items: center;
@@ -210,7 +206,7 @@
         .desktop-nav ul {
             display: flex;
             list-style: none;
-            gap: 10px;
+            gap: 5px;
         }
 
         .desktop-nav ul li {
@@ -222,10 +218,10 @@
             color: var(--dark-color);
             text-decoration: none;
             font-weight: 500;
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-radius: 8px;
             transition: all 0.3s ease;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background: transparent;
             border: 1px solid transparent;
         }
@@ -250,10 +246,10 @@
             background: none;
             border: none;
             color: var(--dark-color);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
+            padding: 6px;
+            border-radius: 6px;
             transition: background-color 0.3s;
         }
 
@@ -261,7 +257,7 @@
             background-color: rgba(0,0,0,0.05);
         }
 
-        /* Menu mobile */
+        /* Menu mobile compact */
         .mobile-menu {
             display: none;
             background: white;
@@ -305,12 +301,13 @@
 
         .mobile-menu ul li a {
             display: block;
-            padding: 18px 20px;
+            padding: 16px 20px;
             color: var(--dark-color);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
             background: transparent;
+            font-size: 0.9rem;
         }
 
         .mobile-menu ul li a:hover,
@@ -781,18 +778,18 @@
             color: #aaa;
         }
 
-        /* Desktop Styles - Media Queries */
+        /* Responsive */
         @media (min-width: 768px) {
             .container {
                 padding: 0 30px;
             }
             
             .header-container {
-                padding: 0 30px;
+                padding: 0 20px;
             }
             
             .header-slider {
-                height: 400px;
+                height: 350px;
             }
             
             .slider-overlay h2 {
@@ -803,22 +800,13 @@
                 font-size: 1.2rem;
             }
             
-            .logo-image {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.5rem;
-            }
-            
             .desktop-nav ul {
-                gap: 10px;
+                gap: 8px;
             }
             
             .desktop-nav ul li a {
-                padding: 12px 24px;
-                font-size: 1rem;
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
             
             .contact-hero {
@@ -839,12 +827,10 @@
         }
 
         @media (max-width: 768px) {
-            /* Cacher la navbar desktop sur mobile */
             .desktop-nav {
                 display: none;
             }
             
-            /* Afficher le bouton menu mobile */
             .mobile-menu-btn {
                 display: block;
             }
@@ -873,6 +859,11 @@
                 padding: 25px;
             }
             
+            .header-container {
+                height: 65px;
+                padding: 0 15px;
+            }
+            
             .logo-image {
                 width: 50px;
                 height: 50px;
@@ -880,11 +871,11 @@
             }
             
             .logo-text h1 {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             
             .logo-text p {
-                font-size: 0.7rem;
+                font-size: 0.65rem;
             }
             
             .map-iframe-container {
@@ -894,11 +885,11 @@
 
         @media (min-width: 1024px) {
             .header-container {
-                padding: 0 40px;
+                padding: 0 25px;
             }
             
             .header-slider {
-                height: 450px;
+                height: 400px;
             }
             
             .slider-overlay h2 {
@@ -906,12 +897,12 @@
             }
             
             .desktop-nav ul {
-                gap: 15px;
+                gap: 10px;
             }
             
             .desktop-nav ul li a {
-                padding: 12px 28px;
-                font-size: 1rem;
+                padding: 10px 22px;
+                font-size: 0.9rem;
             }
             
             .contact-hero {
@@ -968,12 +959,11 @@
     </style>
 </head>
 <body>
-    <!-- Header avec navbar en fond blanc -->
+    <!-- Header avec navbar compacte -->
     <header>
         <div class="header-container">
             <a href="index.html" class="logo">
                 <div class="logo-image">
-                    <!-- Logo image de la Mairie de Saint-Louis -->
                     <img src="images/logomairi2.png" 
                          alt="Logo Mairie de Saint-Louis" 
                          class="logo-img">
@@ -984,13 +974,13 @@
                 </div>
             </a>
             
-            <!-- Navbar Desktop - Visible sur desktop -->
+            <!-- Navbar Desktop Compacte -->
             <nav class="desktop-nav">
                 <ul>
                     <li><a href="index.html">Accueil</a></li>
                     <li><a href="ville.html">La Ville</a></li>
                     <li><a href="mairie.html">Histoire & Patrimoine</a></li>
-                    <li><a href="demarches.html">Démarches en ligne</a></li>
+                    <li><a href="demarches.html">Démarches</a></li>
                     <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
@@ -1002,13 +992,13 @@
             </button>
         </div>
         
-        <!-- Menu mobile (caché sur desktop) -->
+        <!-- Menu mobile compact -->
         <div class="mobile-menu" id="mobileMenu">
             <ul>
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="ville.html">La Ville</a></li>
                 <li><a href="mairie.html">Histoire & Patrimoine</a></li>
-                <li><a href="demarches.html">Démarches en ligne</a></li>
+                <li><a href="demarches.html">Démarches</a></li>
                 <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
@@ -1092,7 +1082,6 @@
                 <div class="animate-on-scroll">
                     <h3>Carte de Saint-Louis</h3>
                     <div class="map-iframe-container">
-                        <!-- Iframe Google Maps centrée sur Saint-Louis -->
                         <iframe 
                             class="map-iframe"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.111979428787!2d-16.50537172477041!3d16.026017071527372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec2128b2f0cc8cb%3A0xa96e87b2a2a5e8b1!2sSaint-Louis%2C%20Senegal!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" 
@@ -1109,7 +1098,6 @@
                         </div>
                     </div>
                     
-                    <!-- Boutons supplémentaires sous la carte -->
                     <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
                         <a href="https://www.google.com/maps/place/Saint-Louis,+Senegal/@16.0259,-16.5031,15z" 
                            target="_blank" 
@@ -1191,37 +1179,37 @@
                 <div class="alert alert-error" id="errorMessage" style="display: none;"></div>
                 <div class="alert alert-warning" id="warningMessage" style="display: none;"></div>
                 
-                <form id="contactForm">
+                <form id="contactForm" method="POST" action="send_email.php">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nom">Nom *</label>
-                            <input type="text" id="nom" class="form-control" required>
+                            <input type="text" id="nom" name="nom" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="prenom">Prénom *</label>
-                            <input type="text" id="prenom" class="form-control" required>
+                            <input type="text" id="prenom" name="prenom" class="form-control" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email">Email *</label>
-                            <input type="email" id="email" class="form-control" required>
+                            <input type="email" id="email" name="email" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="telephone">Téléphone</label>
-                            <input type="tel" id="telephone" class="form-control">
+                            <input type="tel" id="telephone" name="telephone" class="form-control">
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="adresse">Adresse</label>
-                        <input type="text" id="adresse" class="form-control" placeholder="Votre adresse à Saint-Louis">
+                        <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Votre adresse à Saint-Louis">
                     </div>
                     
                     <div class="form-group">
                         <label for="service">Service concerné *</label>
-                        <select id="service" class="form-control" required>
+                        <select id="service" name="service" class="form-control" required>
                             <option value="">Sélectionnez un service</option>
                             <option value="État Civil">État Civil</option>
                             <option value="Urbanisme">Urbanisme</option>
@@ -1236,17 +1224,17 @@
                     
                     <div class="form-group">
                         <label for="sujet">Sujet *</label>
-                        <input type="text" id="sujet" class="form-control" required>
+                        <input type="text" id="sujet" name="sujet" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="message">Message *</label>
-                        <textarea id="message" class="form-control" rows="6" required></textarea>
+                        <textarea id="message" name="message" class="form-control" rows="6" required></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" id="newsletter" checked> M'abonner à la newsletter municipale
+                            <input type="checkbox" id="newsletter" name="newsletter" value="1" checked> M'abonner à la newsletter municipale
                         </label>
                     </div>
                     
@@ -1272,7 +1260,7 @@
                     <ul>
                         <li><a href="index.html">Accueil</a></li>
                         <li><a href="ville.html">La Ville</a></li>
-                        <li><a href="mairie.html">La Mairie</a></li>
+                        <li><a href="mairie.html">Histoire & Patrimoine</a></li>
                         <li><a href="demarches.html">Démarches en ligne</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
@@ -1287,7 +1275,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 Mairie de Saint-Louis /BCMGROUP</p>
+                <p>&copy; 2025 Mairie de Saint-Louis / BCMGROUP</p>
             </div>
         </div>
     </footer>
@@ -1298,12 +1286,6 @@
     </div>
 
     <script>
-        // Configuration EmailJS
-        // REMPLACEZ 'YOUR_PUBLIC_KEY' par votre clé publique EmailJS
-        (function() {
-            emailjs.init('YOUR_PUBLIC_KEY'); // ← REMPLACEZ ICI
-        })();
-
         // Document ready
         document.addEventListener('DOMContentLoaded', function() {
             // Header Slider
@@ -1437,17 +1419,16 @@
                     submitBtn.textContent = '';
                     
                     // Collecter les données du formulaire
-                    const nom = document.getElementById('nom').value;
-                    const prenom = document.getElementById('prenom').value;
-                    const email = document.getElementById('email').value;
-                    const telephone = document.getElementById('telephone').value;
-                    const adresse = document.getElementById('adresse').value;
-                    const service = document.getElementById('service').value;
-                    const sujet = document.getElementById('sujet').value;
-                    const message = document.getElementById('message').value;
-                    const newsletter = document.getElementById('newsletter').checked;
+                    const formData = new FormData(contactForm);
                     
                     // Validation basique
+                    const nom = formData.get('nom');
+                    const prenom = formData.get('prenom');
+                    const email = formData.get('email');
+                    const service = formData.get('service');
+                    const sujet = formData.get('sujet');
+                    const message = formData.get('message');
+                    
                     if (!nom || !prenom || !email || !service || !sujet || !message) {
                         showError("Veuillez remplir tous les champs obligatoires (*)");
                         submitBtn.disabled = false;
@@ -1456,58 +1437,39 @@
                         return;
                     }
                     
-                    // Option 1: Utiliser EmailJS (recommandé)
-                    // Décommentez cette section et configurez EmailJS
-                    /*
-                    const formData = {
-                        from_name: `${nom} ${prenom}`,
-                        from_email: email,
-                        from_phone: telephone || 'Non spécifié',
-                        from_address: adresse || 'Non spécifiée',
-                        service: service,
-                        subject: sujet,
-                        message: message,
-                        newsletter: newsletter ? 'Oui' : 'Non',
-                        date: new Date().toLocaleString('fr-FR'),
-                        to_email: 'o.ndiaye@bcmgroupe.com',
-                        location: 'Saint-Louis, Sénégal'
-                    };
-                    
-                    // Configuration EmailJS - REMPLACEZ CES VALEURS
-                    const serviceID = 'YOUR_SERVICE_ID'; // ← REMPLACEZ
-                    const templateID = 'YOUR_TEMPLATE_ID'; // ← REMPLACEZ
-                    
-                    // Envoyer avec EmailJS
-                    emailjs.send(serviceID, templateID, formData)
-                    .then(function(response) {
-                        console.log('Email envoyé avec succès!', response);
-                        showSuccess();
-                        contactForm.reset();
+                    // Envoyer les données via AJAX
+                    fetch('send_email.php', {
+                        method: 'POST',
+                        body: formData
                     })
-                    .catch(function(error) {
-                        console.log('Erreur EmailJS:', error);
-                        showError("Erreur d'envoi. Utilisez l'option mailto ci-dessous.");
-                        showMailtoAlternative(nom, prenom, email, telephone, service, sujet, message);
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur réseau');
+                        }
+                        return response.json();
                     })
-                    .finally(function() {
+                    .then(data => {
+                        if (data.success) {
+                            showSuccess(data.message || "Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.");
+                            contactForm.reset();
+                        } else {
+                            showError(data.message || "Une erreur s'est produite. Veuillez réessayer.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        showError("Erreur réseau. Veuillez réessayer ou utiliser l'email directement.");
+                        showMailtoAlternative();
+                    })
+                    .finally(() => {
                         submitBtn.disabled = false;
                         submitBtn.classList.remove('btn-loading');
                         submitBtn.textContent = 'Envoyer le message';
                     });
-                    */
-                    
-                    // Option 2: Mailto (fonctionne sans EmailJS)
-                    // Pour l'instant, utilisons mailto comme solution de secours
-                    setTimeout(() => {
-                        sendViaMailto(nom, prenom, email, telephone, adresse, service, sujet, message, newsletter);
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('btn-loading');
-                        submitBtn.textContent = 'Envoyer le message';
-                    }, 1000);
                 });
             }
 
-            // Fonction pour envoyer via mailto
+            // Fonction pour envoyer via mailto (solution de secours)
             function sendViaMailto(nom, prenom, email, telephone, adresse, service, sujet, message, newsletter) {
                 const subject = `[Mairie Saint-Louis] ${sujet} - Service: ${service}`;
                 const body = `
@@ -1536,7 +1498,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
             }
 
             // Fonctions d'affichage des messages
-            function showSuccess(message = "Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.") {
+            function showSuccess(message) {
                 const successMessage = document.getElementById('successMessage');
                 successMessage.innerHTML = `
                     <strong><i class="fas fa-check-circle"></i> Succès !</strong><br>
@@ -1559,9 +1521,14 @@ Date: ${new Date().toLocaleString('fr-FR')}
                 `;
                 errorMessage.style.display = 'block';
                 errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Cacher après 7 secondes
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 7000);
             }
 
-            function showMailtoAlternative(nom, prenom, email, telephone, service, sujet, message) {
+            function showMailtoAlternative() {
                 const warningMessage = document.getElementById('warningMessage');
                 warningMessage.innerHTML = `
                     <strong><i class="fas fa-info-circle"></i> Solution alternative :</strong><br>
@@ -1588,39 +1555,71 @@ Date: ${new Date().toLocaleString('fr-FR')}
                 });
             });
 
-            // Instructions pour configurer EmailJS
+            // Instructions pour configurer le serveur
             console.log(`
-=== INSTRUCTIONS POUR CONFIGURER EMAILJS ===
+=== INSTRUCTIONS POUR CONFIGURER L'ENVOI D'EMAILS ===
 
-1. Allez sur https://www.emailjs.com/ et créez un compte gratuit
-2. Ajoutez votre service email (Gmail, Outlook, etc.)
-3. Créez un template d'email avec ces variables :
-   - {{from_name}}
-   - {{from_email}}
-   - {{from_phone}}
-   - {{from_address}}
-   - {{service}}
-   - {{subject}}
-   - {{message}}
-   - {{newsletter}}
-   - {{date}}
-   - {{to_email}}
-   - {{location}}
+1. Créez un fichier 'send_email.php' dans le même dossier que cette page
+2. Copiez le code PHP suivant dans ce fichier :
 
-4. Récupérez vos identifiants :
-   - Public Key (dans Account > API Keys)
-   - Service ID (dans Email Services)
-   - Template ID (dans Email Templates)
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nom = htmlspecialchars($_POST['nom']);
+    $prenom = htmlspecialchars($_POST['prenom']);
+    $email = htmlspecialchars($_POST['email']);
+    $telephone = htmlspecialchars($_POST['telephone'] ?? 'Non spécifié');
+    $adresse = htmlspecialchars($_POST['adresse'] ?? 'Non spécifiée');
+    $service = htmlspecialchars($_POST['service']);
+    $sujet = htmlspecialchars($_POST['sujet']);
+    $message = htmlspecialchars($_POST['message']);
+    $newsletter = isset($_POST['newsletter']) ? 'Oui' : 'Non';
+    
+    // Destinataire
+    $destinataire = "o.ndiaye@bcmgroupe.com";
+    $sujet_email = "[Mairie Saint-Louis] $sujet - Service: $service";
+    
+    // Construction du message
+    $corps = "
+    NOUVEAU MESSAGE DU SITE MAIRIE DE SAINT-LOUIS
+    
+    Nom: $nom $prenom
+    Email: $email
+    Téléphone: $telephone
+    Adresse: $adresse
+    Service concerné: $service
+    
+    Message:
+    $message
+    
+    ---
+    Inscription newsletter: $newsletter
+    Date: " . date('d/m/Y H:i') . "
+    IP: " . $_SERVER['REMOTE_ADDR'] . "
+    ";
+    
+    // En-têtes
+    $headers = "From: $email\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+    
+    // Envoi de l'email
+    if (mail($destinataire, $sujet_email, $corps, $headers)) {
+        echo json_encode(['success' => true, 'message' => 'Message envoyé avec succès !']);
+    } else {
+        echo json_encode(['success' => false, 'message' => "Erreur d'envoi. Veuillez réessayer."]);
+    }
+} else {
+    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
+}
+?>
 
-5. Remplacez dans le code :
-   - Ligne 939 : emailjs.init('YOUR_PUBLIC_KEY')
-   - Ligne 1050 : const serviceID = 'YOUR_SERVICE_ID'
-   - Ligne 1051 : const templateID = 'YOUR_TEMPLATE_ID'
+3. Assurez-vous que votre serveur supporte PHP
+4. Vérifiez que la fonction mail() est configurée sur votre hébergement
+5. Testez le formulaire avec de vraies données
 
-6. Décommentez la section EmailJS (lignes 1039-1070)
-
-=== POUR LE MOMENT, LE FORMULAIRE UTILISE MAILTO ===
-`);
+=== CONFIGURATION ALTERNATIVE ===
+Si mail() ne fonctionne pas, utilisez PHPMailer ou une solution tierce comme Formspree.
+            `);
         });
     </script>
 </body>
