@@ -632,13 +632,14 @@
             }
         }
 
-        /* Messages d'alerte */
+        /* Messages d'alerte améliorés */
         .alert {
             padding: 15px 20px;
             border-radius: var(--border-radius);
             margin-bottom: 20px;
             display: none;
             animation: slideIn 0.3s ease;
+            font-size: 0.95rem;
         }
 
         @keyframes slideIn {
@@ -668,6 +669,12 @@
             background-color: #fff3cd;
             color: #856404;
             border: 1px solid #ffeaa7;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
 
         /* Loader */
@@ -704,6 +711,29 @@
             border-top: 3px solid white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
+        }
+
+        /* Validation en temps réel */
+        .form-group.error .form-control {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+
+        .form-group.success .form-control {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Honeypot */
+        .honeypot {
+            display: none;
         }
 
         /* Footer */
@@ -1175,19 +1205,29 @@
         <div class="container">
             <h2 class="section-title">Envoyez-nous un message</h2>
             <div class="form-container animate-on-scroll">
+                <!-- Messages système -->
                 <div class="alert alert-success" id="successMessage" style="display: none;"></div>
                 <div class="alert alert-error" id="errorMessage" style="display: none;"></div>
                 <div class="alert alert-warning" id="warningMessage" style="display: none;"></div>
+                <div class="alert alert-info" id="infoMessage" style="display: none;"></div>
                 
-                <form id="contactForm" method="POST" action="send_email.php">
+                <form id="contactForm" method="POST">
+                    <!-- Honeypot field pour la protection anti-spam -->
+                    <div class="honeypot">
+                        <label for="website">Ne pas remplir ce champ</label>
+                        <input type="text" id="website" name="website">
+                    </div>
+                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nom">Nom *</label>
                             <input type="text" id="nom" name="nom" class="form-control" required>
+                            <div class="error-message" id="nom-error"></div>
                         </div>
                         <div class="form-group">
                             <label for="prenom">Prénom *</label>
                             <input type="text" id="prenom" name="prenom" class="form-control" required>
+                            <div class="error-message" id="prenom-error"></div>
                         </div>
                     </div>
                     
@@ -1195,10 +1235,12 @@
                         <div class="form-group">
                             <label for="email">Email *</label>
                             <input type="email" id="email" name="email" class="form-control" required>
+                            <div class="error-message" id="email-error"></div>
                         </div>
                         <div class="form-group">
                             <label for="telephone">Téléphone</label>
                             <input type="tel" id="telephone" name="telephone" class="form-control">
+                            <div class="error-message" id="telephone-error"></div>
                         </div>
                     </div>
                     
@@ -1218,28 +1260,42 @@
                             <option value="Culture et Patrimoine">Culture et Patrimoine</option>
                             <option value="Sports et Loisirs">Sports et Loisirs</option>
                             <option value="Affaires Sociales">Affaires Sociales</option>
+                            <option value="Services Techniques">Services Techniques</option>
+                            <option value="Finances">Finances</option>
+                            <option value="Communication">Communication</option>
                             <option value="Autre">Autre</option>
                         </select>
+                        <div class="error-message" id="service-error"></div>
                     </div>
                     
                     <div class="form-group">
                         <label for="sujet">Sujet *</label>
-                        <input type="text" id="sujet" name="sujet" class="form-control" required>
+                        <input type="text" id="sujet" name="sujet" class="form-control" required placeholder="Objet de votre message">
+                        <div class="error-message" id="sujet-error"></div>
                     </div>
                     
                     <div class="form-group">
                         <label for="message">Message *</label>
-                        <textarea id="message" name="message" class="form-control" rows="6" required></textarea>
+                        <textarea id="message" name="message" class="form-control" rows="6" required placeholder="Décrivez votre demande en détail..."></textarea>
+                        <div class="error-message" id="message-error"></div>
                     </div>
                     
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" id="newsletter" name="newsletter" value="1" checked> M'abonner à la newsletter municipale
+                            <input type="checkbox" id="newsletter" name="newsletter" value="1" checked> 
+                            M'abonner à la newsletter municipale pour recevoir les actualités de la mairie
                         </label>
                     </div>
                     
+                    <div class="form-group">
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                            <i class="fas fa-info-circle"></i> Les champs marqués d'un * sont obligatoires.
+                        </p>
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary" id="submitBtn">
-                        Envoyer le message
+                        <span id="btnText">Envoyer le message</span>
+                        <div class="loader" id="btnLoader" style="display: none;"></div>
                     </button>
                 </form>
             </div>
@@ -1275,7 +1331,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 Mairie de Saint-Louis / BCMGROUP</p>
+                <p>&copy; 2025 Mairie de Saint-Louis / BCMGROUP - Tous droits réservés</p>
             </div>
         </div>
     </footer>
@@ -1400,142 +1456,321 @@
                 });
             }
 
-            // Soumission du formulaire de contact
+            // ===== GESTION DU FORMULAIRE AMÉLIORÉ =====
             const contactForm = document.getElementById('contactForm');
             const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnLoader = document.getElementById('btnLoader');
+            
+            // Fonction pour masquer tous les messages
+            function hideAllMessages() {
+                document.getElementById('successMessage').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('warningMessage').style.display = 'none';
+                document.getElementById('infoMessage').style.display = 'none';
+            }
+            
+            // Fonction pour afficher un message
+            function showMessage(type, message) {
+                const messageElement = document.getElementById(type + 'Message');
+                messageElement.innerHTML = message;
+                messageElement.style.display = 'block';
+                
+                // Faire défiler vers le message
+                messageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Masquer après 10 secondes (sauf pour info)
+                if (type !== 'info') {
+                    setTimeout(() => {
+                        messageElement.style.display = 'none';
+                    }, 10000);
+                }
+            }
+            
+            // Fonction pour valider un champ
+            function validateField(fieldId, validator, errorId, errorMessage) {
+                const field = document.getElementById(fieldId);
+                const value = field.value.trim();
+                const formGroup = field.closest('.form-group');
+                
+                if (!value) {
+                    document.getElementById(errorId).textContent = 'Ce champ est obligatoire';
+                    document.getElementById(errorId).style.display = 'block';
+                    formGroup.classList.add('error');
+                    formGroup.classList.remove('success');
+                    return false;
+                }
+                
+                if (!validator(value)) {
+                    document.getElementById(errorId).textContent = errorMessage;
+                    document.getElementById(errorId).style.display = 'block';
+                    formGroup.classList.add('error');
+                    formGroup.classList.remove('success');
+                    return false;
+                }
+                
+                document.getElementById(errorId).style.display = 'none';
+                formGroup.classList.remove('error');
+                formGroup.classList.add('success');
+                return true;
+            }
+            
+            // Validation de l'email
+            function validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            // Validation du téléphone (Sénégal)
+            function validatePhone(phone) {
+                if (!phone) return true; // Téléphone optionnel
+                const phoneRegex = /^(\+221|00221)?[0-9]{9}$/;
+                const cleanedPhone = phone.replace(/[\s\-\(\)]/g, '');
+                return phoneRegex.test(cleanedPhone);
+            }
+            
+            // Formatage du téléphone
+            function formatPhoneNumber(value) {
+                let numbers = value.replace(/\D/g, '');
+                
+                if (numbers.length === 0) return '';
+                
+                if (numbers.length <= 2) {
+                    return numbers;
+                } else if (numbers.length <= 5) {
+                    return numbers.substring(0, 2) + ' ' + numbers.substring(2);
+                } else if (numbers.length <= 7) {
+                    return numbers.substring(0, 2) + ' ' + numbers.substring(2, 5) + ' ' + numbers.substring(5);
+                } else {
+                    return numbers.substring(0, 2) + ' ' + numbers.substring(2, 5) + ' ' + numbers.substring(5, 7) + ' ' + numbers.substring(7, 9);
+                }
+            }
             
             if (contactForm && submitBtn) {
+                // Validation en temps réel
+                const nomInput = document.getElementById('nom');
+                const prenomInput = document.getElementById('prenom');
+                const emailInput = document.getElementById('email');
+                const telephoneInput = document.getElementById('telephone');
+                const serviceSelect = document.getElementById('service');
+                const sujetInput = document.getElementById('sujet');
+                const messageInput = document.getElementById('message');
+                
+                // Validation du nom
+                nomInput.addEventListener('blur', () => {
+                    validateField('nom', 
+                        (value) => value.length >= 2, 
+                        'nom-error', 
+                        'Le nom doit contenir au moins 2 caractères'
+                    );
+                });
+                
+                // Validation du prénom
+                prenomInput.addEventListener('blur', () => {
+                    validateField('prenom', 
+                        (value) => value.length >= 2, 
+                        'prenom-error', 
+                        'Le prénom doit contenir au moins 2 caractères'
+                    );
+                });
+                
+                // Validation de l'email
+                emailInput.addEventListener('blur', () => {
+                    validateField('email', 
+                        validateEmail, 
+                        'email-error', 
+                        'Veuillez entrer une adresse email valide'
+                    );
+                });
+                
+                // Validation et formatage du téléphone
+                telephoneInput.addEventListener('input', function() {
+                    this.value = formatPhoneNumber(this.value);
+                });
+                
+                telephoneInput.addEventListener('blur', () => {
+                    validateField('telephone', 
+                        validatePhone, 
+                        'telephone-error', 
+                        'Veuillez entrer un numéro de téléphone valide (ex: 77 123 45 67)'
+                    );
+                });
+                
+                // Validation du service
+                serviceSelect.addEventListener('change', () => {
+                    const value = serviceSelect.value;
+                    const formGroup = serviceSelect.closest('.form-group');
+                    
+                    if (!value) {
+                        document.getElementById('service-error').textContent = 'Ce champ est obligatoire';
+                        document.getElementById('service-error').style.display = 'block';
+                        formGroup.classList.add('error');
+                        formGroup.classList.remove('success');
+                    } else {
+                        document.getElementById('service-error').style.display = 'none';
+                        formGroup.classList.remove('error');
+                        formGroup.classList.add('success');
+                    }
+                });
+                
+                // Validation du sujet
+                sujetInput.addEventListener('blur', () => {
+                    validateField('sujet', 
+                        (value) => value.length >= 5, 
+                        'sujet-error', 
+                        'Le sujet doit contenir au moins 5 caractères'
+                    );
+                });
+                
+                // Validation du message
+                messageInput.addEventListener('blur', () => {
+                    validateField('message', 
+                        (value) => value.length >= 10, 
+                        'message-error', 
+                        'Le message doit contenir au moins 10 caractères'
+                    );
+                });
+                
+                // Gestion de la soumission du formulaire
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    // Cacher les messages précédents
-                    document.getElementById('successMessage').style.display = 'none';
-                    document.getElementById('errorMessage').style.display = 'none';
-                    document.getElementById('warningMessage').style.display = 'none';
+                    // Masquer tous les messages précédents
+                    hideAllMessages();
                     
-                    // Désactiver le bouton et afficher le loader
-                    submitBtn.disabled = true;
-                    submitBtn.classList.add('btn-loading');
-                    submitBtn.textContent = '';
-                    
-                    // Collecter les données du formulaire
-                    const formData = new FormData(contactForm);
-                    
-                    // Validation basique
-                    const nom = formData.get('nom');
-                    const prenom = formData.get('prenom');
-                    const email = formData.get('email');
-                    const service = formData.get('service');
-                    const sujet = formData.get('sujet');
-                    const message = formData.get('message');
-                    
-                    if (!nom || !prenom || !email || !service || !sujet || !message) {
-                        showError("Veuillez remplir tous les champs obligatoires (*)");
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('btn-loading');
-                        submitBtn.textContent = 'Envoyer le message';
+                    // Vérification honeypot
+                    const honeypot = document.getElementById('website').value;
+                    if (honeypot) {
+                        // C'est probablement un bot, simuler un succès
+                        showMessage('success', 'Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.');
+                        contactForm.reset();
                         return;
                     }
                     
-                    // Envoyer les données via AJAX
-                    fetch('send_email.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erreur réseau');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            showSuccess(data.message || "Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.");
+                    // Validation avant soumission
+                    const isNomValid = validateField('nom', 
+                        (value) => value.length >= 2, 
+                        'nom-error', 
+                        'Le nom doit contenir au moins 2 caractères'
+                    );
+                    
+                    const isPrenomValid = validateField('prenom', 
+                        (value) => value.length >= 2, 
+                        'prenom-error', 
+                        'Le prénom doit contenir au moins 2 caractères'
+                    );
+                    
+                    const isEmailValid = validateField('email', 
+                        validateEmail, 
+                        'email-error', 
+                        'Veuillez entrer une adresse email valide'
+                    );
+                    
+                    const isPhoneValid = validateField('telephone', 
+                        validatePhone, 
+                        'telephone-error', 
+                        'Veuillez entrer un numéro de téléphone valide'
+                    );
+                    
+                    const isServiceValid = serviceSelect.value ? true : false;
+                    if (!isServiceValid) {
+                        document.getElementById('service-error').textContent = 'Ce champ est obligatoire';
+                        document.getElementById('service-error').style.display = 'block';
+                        serviceSelect.closest('.form-group').classList.add('error');
+                    }
+                    
+                    const isSujetValid = validateField('sujet', 
+                        (value) => value.length >= 5, 
+                        'sujet-error', 
+                        'Le sujet doit contenir au moins 5 caractères'
+                    );
+                    
+                    const isMessageValid = validateField('message', 
+                        (value) => value.length >= 10, 
+                        'message-error', 
+                        'Le message doit contenir au moins 10 caractères'
+                    );
+                    
+                    // Si tout est valide
+                    if (isNomValid && isPrenomValid && isEmailValid && isPhoneValid && isServiceValid && isSujetValid && isMessageValid) {
+                        // Désactiver le bouton pendant l'envoi
+                        const originalText = btnText.textContent;
+                        submitBtn.disabled = true;
+                        btnText.textContent = 'Envoi en cours...';
+                        btnLoader.style.display = 'inline-block';
+                        
+                        // Créer un FormData avec les données du formulaire
+                        const formData = new FormData(contactForm);
+                        
+                        // Envoyer les données via AJAX
+                        fetch('send_email.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erreur réseau: ' + response.status);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                // Afficher le message de succès
+                                showMessage('success', data.message || 'Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.');
+                                
+                                // Réinitialiser le formulaire
+                                contactForm.reset();
+                                
+                                // Réinitialiser les états de validation
+                                document.querySelectorAll('.form-group').forEach(group => {
+                                    group.classList.remove('success', 'error');
+                                });
+                                
+                                // Afficher un message d'information supplémentaire
+                                setTimeout(() => {
+                                    showMessage('info', 
+                                        'Vous pouvez également nous contacter directement par téléphone au +221 33 961 10 10 pour une réponse plus rapide.'
+                                    );
+                                }, 2000);
+                            } else {
+                                // Afficher le message d'erreur
+                                showMessage('error', data.message || "Une erreur s'est produite. Veuillez réessayer.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur:', error);
+                            
+                            // Solution de secours : utiliser mailto
+                            showMessage('warning', 
+                                "Envoi en cours... Si rien ne se passe, cliquez sur le lien ci-dessous :<br>" +
+                                '<a href="mailto:o.ndiaye@bcmgroupe.com?subject=Message Mairie Saint-Louis&body=' + 
+                                encodeURIComponent('Nom: ' + nomInput.value + '\n' +
+                                                'Prénom: ' + prenomInput.value + '\n' +
+                                                'Email: ' + emailInput.value + '\n' +
+                                                'Téléphone: ' + (telephoneInput.value || 'Non spécifié') + '\n' +
+                                                'Service: ' + serviceSelect.value + '\n' +
+                                                'Sujet: ' + sujetInput.value + '\n' +
+                                                'Message: ' + messageInput.value) + 
+                                '" style="color: #856404; text-decoration: underline; margin-top: 10px; display: inline-block;">Ouvrir votre client email</a>'
+                            );
+                            
+                            // Réinitialiser le formulaire
                             contactForm.reset();
-                        } else {
-                            showError(data.message || "Une erreur s'est produite. Veuillez réessayer.");
+                        })
+                        .finally(() => {
+                            // Rétablir le bouton
+                            submitBtn.disabled = false;
+                            btnText.textContent = originalText;
+                            btnLoader.style.display = 'none';
+                        });
+                    } else {
+                        // Faire défiler vers la première erreur
+                        const firstError = document.querySelector('.error-message[style="display: block;"]');
+                        if (firstError) {
+                            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }
-                    })
-                    .catch(error => {
-                        console.error('Erreur:', error);
-                        showError("Erreur réseau. Veuillez réessayer ou utiliser l'email directement.");
-                        showMailtoAlternative();
-                    })
-                    .finally(() => {
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('btn-loading');
-                        submitBtn.textContent = 'Envoyer le message';
-                    });
+                    }
                 });
-            }
-
-            // Fonction pour envoyer via mailto (solution de secours)
-            function sendViaMailto(nom, prenom, email, telephone, adresse, service, sujet, message, newsletter) {
-                const subject = `[Mairie Saint-Louis] ${sujet} - Service: ${service}`;
-                const body = `
-Nom: ${nom} ${prenom}
-Email: ${email}
-Téléphone: ${telephone || 'Non spécifié'}
-Adresse: ${adresse || 'Non spécifiée'}
-Service concerné: ${service}
-
-Message:
-${message}
-
----
-Newsletter: ${newsletter ? 'Oui' : 'Non'}
-Envoyé depuis le formulaire de contact du site Mairie de Saint-Louis
-Date: ${new Date().toLocaleString('fr-FR')}
-                `;
-                
-                const mailtoLink = `mailto:o.ndiaye@bcmgroupe.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                
-                // Ouvrir le client email
-                window.open(mailtoLink, '_blank');
-                
-                // Afficher le message de succès
-                showSuccess("Votre client email s'ouvre. Composez et envoyez le message.");
-            }
-
-            // Fonctions d'affichage des messages
-            function showSuccess(message) {
-                const successMessage = document.getElementById('successMessage');
-                successMessage.innerHTML = `
-                    <strong><i class="fas fa-check-circle"></i> Succès !</strong><br>
-                    ${message}
-                `;
-                successMessage.style.display = 'block';
-                successMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                
-                // Cacher après 7 secondes
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 7000);
-            }
-
-            function showError(message) {
-                const errorMessage = document.getElementById('errorMessage');
-                errorMessage.innerHTML = `
-                    <strong><i class="fas fa-exclamation-triangle"></i> Erreur !</strong><br>
-                    ${message}
-                `;
-                errorMessage.style.display = 'block';
-                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                
-                // Cacher après 7 secondes
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 7000);
-            }
-
-            function showMailtoAlternative() {
-                const warningMessage = document.getElementById('warningMessage');
-                warningMessage.innerHTML = `
-                    <strong><i class="fas fa-info-circle"></i> Solution alternative :</strong><br>
-                    Vous pouvez nous contacter directement par email à o.ndiaye@bcmgroupe.com<br>
-                    ou par téléphone au +221 33 961 10 10
-                `;
-                warningMessage.style.display = 'block';
             }
 
             // Smooth scroll pour les ancres
@@ -1563,50 +1798,201 @@ Date: ${new Date().toLocaleString('fr-FR')}
 2. Copiez le code PHP suivant dans ce fichier :
 
 <?php
+header('Content-Type: application/json; charset=utf-8');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = htmlspecialchars($_POST['nom']);
-    $prenom = htmlspecialchars($_POST['prenom']);
-    $email = htmlspecialchars($_POST['email']);
-    $telephone = htmlspecialchars($_POST['telephone'] ?? 'Non spécifié');
-    $adresse = htmlspecialchars($_POST['adresse'] ?? 'Non spécifiée');
-    $service = htmlspecialchars($_POST['service']);
-    $sujet = htmlspecialchars($_POST['sujet']);
-    $message = htmlspecialchars($_POST['message']);
+    // Vérification honeypot
+    if (!empty($_POST['website'])) {
+        echo json_encode(['success' => true, 'message' => 'Message envoyé avec succès !']);
+        exit;
+    }
+    
+    // Nettoyage des données
+    $nom = htmlspecialchars(strip_tags(trim($_POST['nom'])));
+    $prenom = htmlspecialchars(strip_tags(trim($_POST['prenom'])));
+    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $telephone = htmlspecialchars(strip_tags(trim($_POST['telephone'] ?? 'Non spécifié')));
+    $adresse = htmlspecialchars(strip_tags(trim($_POST['adresse'] ?? 'Non spécifiée')));
+    $service = htmlspecialchars(strip_tags(trim($_POST['service'])));
+    $sujet = htmlspecialchars(strip_tags(trim($_POST['sujet'])));
+    $message = htmlspecialchars(strip_tags(trim($_POST['message'])));
     $newsletter = isset($_POST['newsletter']) ? 'Oui' : 'Non';
     
-    // Destinataire
+    // Validation
+    $errors = [];
+    if (empty($nom)) $errors[] = "Le nom est obligatoire";
+    if (empty($prenom)) $errors[] = "Le prénom est obligatoire";
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "L'email est invalide";
+    if (empty($service)) $errors[] = "Le service est obligatoire";
+    if (empty($sujet)) $errors[] = "Le sujet est obligatoire";
+    if (empty($message)) $errors[] = "Le message est obligatoire";
+    
+    if (!empty($errors)) {
+        echo json_encode(['success' => false, 'message' => implode("<br>", $errors)]);
+        exit;
+    }
+    
+    // Destinataire principal
     $destinataire = "o.ndiaye@bcmgroupe.com";
     $sujet_email = "[Mairie Saint-Louis] $sujet - Service: $service";
     
-    // Construction du message
-    $corps = "
+    // Construction du message HTML
+    $corps_html = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset='UTF-8'>
+        <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background-color: #0a3d62; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+            .content { background-color: #f9f9f9; padding: 30px; border: 1px solid #ddd; }
+            .section { margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #eee; }
+            .section:last-child { border-bottom: none; }
+            .section-title { color: #0a3d62; font-weight: 600; margin-bottom: 15px; font-size: 1.2rem; }
+            .info-item { margin-bottom: 10px; }
+            .label { font-weight: 600; color: #333; }
+            .value { color: #555; }
+            .message-box { background-color: white; padding: 15px; border-left: 4px solid #f6b93b; margin: 15px 0; border-radius: 4px; }
+            .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; text-align: center; }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='header'>
+                <h1>Nouveau message - Mairie de Saint-Louis</h1>
+            </div>
+            <div class='content'>
+                <div class='section'>
+                    <h2 class='section-title'>Informations du citoyen</h2>
+                    <div class='info-item'><span class='label'>Nom :</span> <span class='value'>$nom $prenom</span></div>
+                    <div class='info-item'><span class='label'>Email :</span> <span class='value'><a href='mailto:$email'>$email</a></span></div>
+                    <div class='info-item'><span class='label'>Téléphone :</span> <span class='value'><a href='tel:$telephone'>$telephone</a></span></div>
+                    <div class='info-item'><span class='label'>Adresse :</span> <span class='value'>$adresse</span></div>
+                </div>
+                
+                <div class='section'>
+                    <h2 class='section-title'>Détails de la demande</h2>
+                    <div class='info-item'><span class='label'>Service concerné :</span> <span class='value'>$service</span></div>
+                    <div class='info-item'><span class='label'>Sujet :</span> <span class='value'>$sujet</span></div>
+                    <div class='info-item'><span class='label'>Inscription newsletter :</span> <span class='value'>$newsletter</span></div>
+                </div>
+                
+                <div class='section'>
+                    <h2 class='section-title'>Message</h2>
+                    <div class='message-box'>
+                        " . nl2br($message) . "
+                    </div>
+                </div>
+            </div>
+            <div class='footer'>
+                <p>Message envoyé depuis le formulaire de contact du site Mairie de Saint-Louis</p>
+                <p>Date : " . date('d/m/Y H:i') . " | IP : " . $_SERVER['REMOTE_ADDR'] . "</p>
+                <p>⚠️ Réponse requise dans les 48h</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+    
+    // Version texte
+    $corps_text = "
     NOUVEAU MESSAGE DU SITE MAIRIE DE SAINT-LOUIS
     
+    INFORMATIONS DU CITOYEN
+    -----------------------
     Nom: $nom $prenom
     Email: $email
     Téléphone: $telephone
     Adresse: $adresse
-    Service concerné: $service
     
-    Message:
+    DÉTAILS DE LA DEMANDE
+    ---------------------
+    Service concerné: $service
+    Sujet: $sujet
+    Newsletter: $newsletter
+    
+    MESSAGE
+    -------
     $message
     
     ---
-    Inscription newsletter: $newsletter
     Date: " . date('d/m/Y H:i') . "
     IP: " . $_SERVER['REMOTE_ADDR'] . "
+    Page: Formulaire de contact
     ";
     
-    // En-têtes
-    $headers = "From: $email\r\n";
+    // En-têtes pour email multipart
+    $boundary = uniqid('np');
+    $headers = "From: $nom $prenom <$email>\r\n";
     $headers .= "Reply-To: $email\r\n";
-    $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: multipart/alternative; boundary=\"$boundary\"\r\n";
+    $headers .= "X-Mailer: PHP/" . phpversion();
     
-    // Envoi de l'email
-    if (mail($destinataire, $sujet_email, $corps, $headers)) {
-        echo json_encode(['success' => true, 'message' => 'Message envoyé avec succès !']);
+    // Corps du message multipart
+    $message_body = "--$boundary\r\n";
+    $message_body .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $message_body .= "Content-Transfer-Encoding: quoted-printable\r\n\r\n";
+    $message_body .= quoted_printable_encode($corps_text) . "\r\n";
+    
+    $message_body .= "--$boundary\r\n";
+    $message_body .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $message_body .= "Content-Transfer-Encoding: quoted-printable\r\n\r\n";
+    $message_body .= quoted_printable_encode($corps_html) . "\r\n";
+    
+    $message_body .= "--$boundary--";
+    
+    // Envoi de l'email principal
+    $email_sent = mail($destinataire, $sujet_email, $message_body, $headers);
+    
+    if ($email_sent) {
+        // Accusé de réception
+        $accuse_sujet = "Accusé de réception - Mairie de Saint-Louis";
+        $accuse_corps = "
+        Bonjour $prenom $nom,
+        
+        Nous accusons réception de votre message concernant : $sujet
+        
+        Votre demande a été transmise au service $service qui la traitera dans les meilleurs délais.
+        
+        Nous vous répondrons à l'adresse email : $email
+        
+        Récapitulatif de votre message :
+        --------------------------------
+        Service: $service
+        Sujet: $sujet
+        
+        Message:
+        $message
+        
+        Nous vous remercions pour votre confiance et nous vous contacterons très prochainement.
+        
+        Cordialement,
+        L'équipe de la Mairie de Saint-Louis
+        
+        📞 Téléphone : +221 33 961 10 10
+        📧 Email : o.ndiaye@bcmgroupe.com
+        📍 Adresse : Place Faidherbe, Île de Saint-Louis
+        
+        ---
+        Ceci est un message automatique, merci de ne pas y répondre.
+        Date : " . date('d/m/Y H:i') . "
+        ";
+        
+        $accuse_headers = "From: Mairie de Saint-Louis <noreply@mairie-saintlouis.sn>\r\n";
+        $accuse_headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+        
+        // Envoyer l'accusé de réception
+        mail($email, $accuse_sujet, $accuse_corps, $accuse_headers);
+        
+        // Sauvegarde dans un fichier log
+        $log_entry = date('Y-m-d H:i:s') . " | Nom: $nom $prenom | Email: $email | Service: $service | Sujet: $sujet\n";
+        @file_put_contents('messages_log.txt', $log_entry, FILE_APPEND);
+        
+        echo json_encode(['success' => true, 'message' => 'Votre message a bien été envoyé ! Un accusé de réception vous a été envoyé par email.']);
     } else {
-        echo json_encode(['success' => false, 'message' => "Erreur d'envoi. Veuillez réessayer."]);
+        echo json_encode(['success' => false, 'message' => "Erreur d'envoi. Veuillez réessayer ou nous contacter directement."]);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
@@ -1614,13 +2000,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 3. Assurez-vous que votre serveur supporte PHP
-4. Vérifiez que la fonction mail() est configurée sur votre hébergement
-5. Testez le formulaire avec de vraies données
+4. Testez le formulaire avec de vraies données
+5. Vérifiez que l'email arrive à o.ndiaye@bcmgroupe.com
 
 === CONFIGURATION ALTERNATIVE ===
-Si mail() ne fonctionne pas, utilisez PHPMailer ou une solution tierce comme Formspree.
+Si mail() ne fonctionne pas, modifiez la ligne dans send_email.php :
+$destinataire = "o.ndiaye@bcmgroupe.com"; // Votre email
             `);
         });
     </script>
+    
+    <!-- Code PHP intégré pour le traitement du formulaire (solution de secours) -->
+    <?php
+    // Si le formulaire est soumis en POST et que le fichier send_email.php n'existe pas
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !file_exists('send_email.php')) {
+        // Vérification honeypot
+        if (!empty($_POST['website'])) {
+            echo '<script>document.addEventListener("DOMContentLoaded", function() {
+                showMessage("success", "Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.");
+            });</script>';
+            exit;
+        }
+        
+        // Nettoyage des données
+        $nom = htmlspecialchars(strip_tags(trim($_POST['nom'])));
+        $prenom = htmlspecialchars(strip_tags(trim($_POST['prenom'])));
+        $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+        $telephone = htmlspecialchars(strip_tags(trim($_POST['telephone'] ?? 'Non spécifié')));
+        $adresse = htmlspecialchars(strip_tags(trim($_POST['adresse'] ?? 'Non spécifiée')));
+        $service = htmlspecialchars(strip_tags(trim($_POST['service'])));
+        $sujet = htmlspecialchars(strip_tags(trim($_POST['sujet'])));
+        $message = htmlspecialchars(strip_tags(trim($_POST['message'])));
+        $newsletter = isset($_POST['newsletter']) ? 'Oui' : 'Non';
+        
+        // Destinataire
+        $destinataire = "o.ndiaye@bcmgroupe.com";
+        $sujet_email = "[Mairie Saint-Louis] $sujet - Service: $service";
+        
+        // Construction du message
+        $corps = "
+        NOUVEAU MESSAGE DU SITE MAIRIE DE SAINT-LOUIS
+        
+        Nom: $nom $prenom
+        Email: $email
+        Téléphone: $telephone
+        Adresse: $adresse
+        Service concerné: $service
+        Sujet: $sujet
+        Newsletter: $newsletter
+        
+        Message:
+        $message
+        
+        ---
+        Date: " . date('d/m/Y H:i') . "
+        IP: " . $_SERVER['REMOTE_ADDR'] . "
+        ";
+        
+        // En-têtes
+        $headers = "From: $nom $prenom <$email>\r\n";
+        $headers .= "Reply-To: $email\r\n";
+        $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+        $headers .= "X-Mailer: PHP/" . phpversion();
+        
+        // Envoi de l'email
+        if (mail($destinataire, $sujet_email, $corps, $headers)) {
+            echo '<script>document.addEventListener("DOMContentLoaded", function() {
+                showMessage("success", "Votre message a bien été envoyé !");
+            });</script>';
+        } else {
+            echo '<script>document.addEventListener("DOMContentLoaded", function() {
+                showMessage("error", "Erreur lors de l\'envoi du message. Veuillez réessayer.");
+            });</script>';
+        }
+    }
+    ?>
 </body>
 </html>

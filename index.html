@@ -972,6 +972,136 @@
             border-top: 1px solid rgba(0,0,0,0.1);
         }
 
+        /* NOUVELLE SECTION : Témoignages */
+        .testimonials-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+        }
+
+        .testimonials-section .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(10, 61, 98, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            border-color: rgba(10, 61, 98, 0.2);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 5rem;
+            color: rgba(246, 185, 59, 0.2);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            padding-right: 10px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 20px;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 3px;
+            margin-top: 5px;
+        }
+
+        .testimonial-rating i {
+            color: #FFD700;
+            font-size: 0.9rem;
+        }
+
         /* Footer */
         footer {
             background-color: var(--dark-color);
@@ -1453,7 +1583,7 @@
                         <!-- Adjoint 2 - Nouvelle image haute qualité -->
                         <div class="adjoint-carousel-card">
                             <div class="adjoint-photo-container">
-                                <img src="images/port.jpg" alt="Monsieur Amadou DIALLO, Deuxième Adjoint" class="adjoint-photo">
+                                <img src="images/logomairi2.png" alt="Monsieur Amadou DIALLO, Deuxième Adjoint" class="adjoint-photo">
                                 <div class="adjoint-badge">
                                     <div class="adjoint-nom">M. Amadou DIALLO</div>
                                     <div class="adjoint-fonction">Deuxième Adjoint</div>
@@ -1469,7 +1599,7 @@
                         <!-- Adjoint 3 - Nouvelle image haute qualité -->
                         <div class="adjoint-carousel-card">
                             <div class="adjoint-photo-container">
-                                <img src="images/port.jpg" class="adjoint-photo">
+                                <img src="images/camara.jpeg" class="adjoint-photo">
                                 <div class="adjoint-badge">
                                     <div class="adjoint-nom">Mme Fatou NDIAYE</div>
                                     <div class="adjoint-fonction">Troisième Adjointe</div>
@@ -1485,7 +1615,7 @@
                         <!-- Adjoint 4 - Nouvelle image haute qualité -->
                         <div class="adjoint-carousel-card">
                             <div class="adjoint-photo-container">
-                                <img src="images/port.jpg" alt="Monsieur Cheikh FALL, Quatrième Adjoint" class="adjoint-photo">
+                                <img src="images/boye.jpeg" alt="Monsieur Cheikh FALL, Quatrième Adjoint" class="adjoint-photo">
                                 <div class="adjoint-badge">
                                     <div class="adjoint-nom">M. Cheikh FALL</div>
                                     <div class="adjoint-fonction">Quatrième Adjoint</div>
@@ -1619,6 +1749,101 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOUVELLE SECTION : Témoignages -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">Témoignages des Habitants</h2>
+            <p class="section-subtitle">Découvrez ce que pensent nos concitoyens de leur ville et des services municipaux</p>
+            
+            <div class="testimonials-grid">
+                
+                
+                <!-- Témoignage 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            "En tant que jeune entrepreneur, j'apprécie particulièrement les initiatives de la mairie pour soutenir les startups locales. L'incubateur municipal m'a permis de lancer mon projet."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="images/testimonial3.jpg" alt="Fatou Kane">
+                            </div>
+                            <div class="author-info">
+                                <h4>Fatou Kane</h4>
+                                <p>Entrepreneure, Sor</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Témoignage 4 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            "Le nouveau système de collecte des déchets a considérablement amélioré la propreté de notre quartier. Nous respirons mieux et notre environnement est plus agréable."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="images/testimonial4.jpg" alt="Abdoulaye Ba">
+                            </div>
+                            <div class="author-info">
+                                <h4>Abdoulaye Ba</h4>
+                                <p>Enseignant, Nord de la ville</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                <!-- Témoignage 6 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            "Les travaux d'éclairage public ont grandement amélioré la sécurité dans notre rue. Nous pouvons maintenant sortir le soir sans inquiétude. Merci à l'équipe municipale !"
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="images/testimonial6.jpg" alt="Ibrahima Sall">
+                            </div>
+                            <div class="author-info">
+                                <h4>Ibrahima Sall</h4>
+                                <p>Agent de sécurité, Centre-ville</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="contact.html#testimonials" class="btn" style="padding: 14px 30px; background-color: var(--primary-color); color: white;">
+                    <i class="fas fa-comment-dots"></i> Partager votre expérience
+                </a>
             </div>
         </div>
     </section>
@@ -1867,7 +2092,7 @@
             }, observerOptions);
 
             // Observer les éléments à animer
-            document.querySelectorAll('.service-card, .maire-card, .blog-card, .stat-item').forEach(el => {
+            document.querySelectorAll('.service-card, .maire-card, .blog-card, .stat-item, .testimonial-card').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
