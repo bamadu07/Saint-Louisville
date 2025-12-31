@@ -2876,3 +2876,90 @@ Si mail() ne fonctionne pas, modifiez la ligne dans send_email.php :
 $destinataire = "o.ndiaye@bcmgroupe.com"; // Votre email
     `);
 });
+// Ajoutez ce script dans votre fichier HTML ou JavaScript existant
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Éléments du menu mobile
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const body = document.body;
+    
+    // Vérifier si on est sur mobile
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && mobileMenuBtn && mobileMenu) {
+        // Afficher le bouton menu sur mobile
+        mobileMenuBtn.style.display = 'flex';
+        
+        // Gérer le clic sur le bouton menu
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            mobileMenu.classList.toggle('active');
+            body.classList.toggle('menu-open');
+            
+            // Animation de l'icône
+            const icon = this.querySelector('i');
+            if (icon) {
+                if (mobileMenu.classList.contains('active')) {
+                    icon.className = 'fas fa-times';
+                } else {
+                    icon.className = 'fas fa-bars';
+                }
+            }
+        });
+        
+        // Fermer le menu en cliquant à l'extérieur
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                body.classList.remove('menu-open');
+                
+                // Réinitialiser l'icône
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-bars';
+                }
+            }
+        });
+        
+        // Fermer le menu en cliquant sur un lien
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                body.classList.remove('menu-open');
+                
+                // Réinitialiser l'icône
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-bars';
+                }
+            });
+        });
+        
+        // Empêcher la fermeture quand on clique dans le menu
+        mobileMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+    
+    // Gérer le redimensionnement de la fenêtre
+    window.addEventListener('resize', function() {
+        const isNowMobile = window.innerWidth <= 768;
+        
+        if (mobileMenuBtn && mobileMenu) {
+            if (isNowMobile) {
+                // Afficher le bouton menu
+                mobileMenuBtn.style.display = 'flex';
+            } else {
+                // Masquer le bouton menu et fermer le menu mobile
+                mobileMenuBtn.style.display = 'none';
+                mobileMenu.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        }
+    });
+});
+
