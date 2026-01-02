@@ -4082,3 +4082,29 @@ body.admin-page .footer-contact i {
     outline: 3px solid var(--accent-color);
     outline-offset: 2px;
 }
+
+/* Trouvez ceci dans le CSS (environ ligne 1400) */
+.quick-services .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Remplacez par ceci : */
+.quick-services .section-header {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-direction: column; /* Empile les éléments verticalement */
+    text-align: center; /* Centre le texte */
+}
+
+/* Si le bouton "Voir Plus" doit être en dessous et centré */
+.quick-services .see-more-btn {
+    align-self: center; /* Centre le bouton */
+    margin-top: 1rem; /* Ajoute un espace au-dessus du bouton */
+}
+
+
