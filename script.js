@@ -2963,3 +2963,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+
+
+// Fonction pour basculer l'affichage de la description
+function toggleDescription(itemId) {
+    const item = document.querySelector(`.galerie-item[data-id="${itemId}"]`);
+    const content = item.querySelector('.description-content');
+    const button = item.querySelector('.read-more-btn');
+    const btnText = item.querySelector('.btn-text');
+    const btnIcon = item.querySelector('.btn-icon');
+    
+    // Basculer la classe expanded
+    content.classList.toggle('expanded');
+    button.classList.toggle('active');
+    
+    // Changer le texte du bouton
+    if (content.classList.contains('expanded')) {
+        btnText.textContent = 'Réduire le texte';
+    } else {
+        btnText.textContent = 'Lire tout le texte';
+    }
+}
+
+// Fermer les descriptions étendues quand on clique ailleurs
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.galerie-item')) {
+        const expandedContents = document.querySelectorAll('.description-content.expanded');
+        expandedContents.forEach(content => {
+            content.classList.remove('expanded');
+            const button = content.closest('.galerie-item').querySelector('.read-more-btn');
+            const btnText = button.querySelector('.btn-text');
+            button.classList.remove('active');
+            btnText.textContent = 'Lire tout le texte';
+        });
+    }
+});

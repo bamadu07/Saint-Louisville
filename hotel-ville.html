@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hôtel de Ville - Mairie de Saint-Louis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <!-- HEADER IDENTIQUE À L'ACCUEIL -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-image">
+                    <img src="images/logomairi2.png" alt="Logo Mairie de Saint-Louis" class="logo-img">
+                </div>
+                <div class="logo-text">
+                    <h1>Mairie de <span>Saint-Louis</span></h1>
+                    <p>Sénégal - Patrimoine UNESCO</p>
+                </div>
+            </a>
+            
+            <!-- Navbar Desktop - Texte réduit -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="ville.html">Patrimoine</a></li>
+                    <li><a href="mairie.html">La Ville</a></li>
+                    <li><a href="demarches.html">Démarches</a></li>
+                    <li><a href="hotel-ville.html" class="active">Hôtel de Ville</a></li>
+                    <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Bouton menu mobile -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Menu mobile (caché sur desktop) -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="ville.html">Histoire & Patrimoine</a></li>
+                <li><a href="mairie.html">La Ville</a></li>
+                <li><a href="demarches.html">Démarches</a></li>
+                <li><a href="hotel-ville.html" class="active">Hôtel de Ville</a></li>
+                <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section AVEC SLIDER DE 2 IMAGES AVEC NOUVELLES IMAGES -->
+    <section class="hotel-ville-hero">
+        <div class="hero-slider">
+            <div class="slider-container">
+                <div class="slide slide-1 active"></div>
+                <div class="slide slide-2"></div>
+                <div class="slider-overlay"></div>
+                <div class="slider-nav">
+                    <div class="slider-dot active" data-slide="0"></div>
+                    <div class="slider-dot" data-slide="1"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hotel-ville-hero-content">
+            <div class="container">
+                <!-- Texte directement sans box -->
+                <h1 style="margin-bottom: 1.5rem;">Hôtel de Ville de Saint-Louis</h1>
+                <p style="max-width: 800px; margin: 0 auto 2.5rem; font-size: 1.2rem; opacity: 0.95;">
+                    Symbole du pouvoir municipal et témoin de l'histoire coloniale, l'Hôtel de Ville est un joyau architectural du patrimoine saint-louisien, classé au patrimoine mondial de l'UNESCO.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#architecture" class="btn" style="background-color: white; color: var(--primary-color);">
+                        <i class="fas fa-archway"></i> Découvrir l'architecture
+                    </a>
+                    <a href="#partenaires-separate" class="btn btn-primary" style="background-color: transparent; border: 2px solid white; color: white;">
+                        <i class="fas fa-handshake"></i> Voir nos partenaires
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Effet de vague décoratif -->
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0;">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#f8f9fa"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Section - EN JAUNE D'OR -->
+    <section class="hotel-stats">
+        <div class="container">
+            <h2 class="section-title">L'Hôtel de Ville en Chiffres</h2>
+            <div class="stats-grid">
+                <div class="stat-item floating">
+                    <i class="fas fa-calendar-day"></i>
+                    <div class="stat-number">1895</div>
+                    <div class="stat-label">Année de construction</div>
+                </div>
+                
+                <div class="stat-item floating" style="animation-delay: 0.2s;">
+                    <i class="fas fa-building"></i>
+                    <div class="stat-number">2.500 m²</div>
+                    <div class="stat-label">Surface totale</div>
+                </div>
+                
+                <div class="stat-item floating" style="animation-delay: 0.4s;">
+                    <i class="fas fa-door-open"></i>
+                    <div class="stat-number">48</div>
+                    <div class="stat-label">Bureaux et salles</div>
+                </div>
+                
+                <div class="stat-item floating" style="animation-delay: 0.6s;">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number">12.000+</div>
+                    <div class="stat-label">Visiteurs annuels</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Histoire - CENTRÉE -->
+    <section class="histoire-section">
+        <div class="container">
+            <div class="histoire-intro">
+                <h2>Histoire de l'Hôtel de Ville</h2>
+                <p>Découvrez l'histoire riche et passionnante de ce bâtiment emblématique à travers les siècles. Symbole du pouvoir municipal et témoin des transformations urbaines, l'Hôtel de Ville de Saint-Louis incarne l'âme de la ville et son évolution depuis l'époque coloniale jusqu'à nos jours.</p>
+            </div>
+            
+            <div class="histoire-timeline-horizontal">
+                <div class="timeline-track">
+                    <!-- Événement 1 -->
+                    <div class="timeline-item-horizontal animate-on-scroll">
+                        <div class="timeline-year-badge">1854</div>
+                        <div class="timeline-content-horizontal">
+                            <h3>Fondation Historique</h3>
+                            <p>Construction du premier bâtiment municipal sous le gouverneur Louis Faidherbe.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Événement 2 -->
+                    <div class="timeline-item-horizontal animate-on-scroll">
+                        <div class="timeline-year-badge">1895</div>
+                        <div class="timeline-content-horizontal">
+                            <h3>Renaissance Architecturale</h3>
+                            <p>Rénovation complète pour créer l'édifice néo-classique actuel.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Événement 3 -->
+                    <div class="timeline-item-horizontal animate-on-scroll">
+                        <div class="timeline-year-badge">1960</div>
+                        <div class="timeline-content-horizontal">
+                            <h3>Ère de l'Indépendance</h3>
+                            <p>Devenu siège de la mairie dans le Sénégal indépendant.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Événement 4 -->
+                    <div class="timeline-item-horizontal animate-on-scroll">
+                        <div class="timeline-year-badge">2000</div>
+                        <div class="timeline-content-horizontal">
+                            <h3>Reconnaissance Mondiale</h3>
+                            <p>Classement au patrimoine mondial de l'UNESCO.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Événement 5 -->
+                    <div class="timeline-item-horizontal animate-on-scroll">
+                        <div class="timeline-year-badge">2018</div>
+                        <div class="timeline-content-horizontal">
+                            <h3>Rénovation Moderne</h3>
+                            <p>Programme de restauration complet pour moderniser les infrastructures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Architecture - CENTRÉE et SÉPARÉE -->
+    <section class="architecture-section" id="architecture">
+        <div class="container">
+            <div class="architecture-header">
+                <h2>Architecture et Caractéristiques</h2>
+                <p class="section-subtitle">Un chef-d'œuvre d'architecture néo-classique sous influences africaines, préservé avec soin</p>
+            </div>
+            
+            <div class="architecture-features">
+                <!-- Caractéristique 1 -->
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-image">
+                        <img src="images/mairie.jpeg" alt="Façade principale de l'Hôtel de Ville">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Façade Principale</h3>
+                        <p>Style néo-classique avec colonnades imposantes, balcons en fer forgé artisanal et fronton sculpté.</p>
+                    </div>
+                </div>
+                
+                <!-- Caractéristique 2 -->
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-image">
+                        <img src="images/fer.jpeg" alt="Salle du Conseil Municipal">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Salle du Conseil</h3>
+                        <p>Conserve son mobilier d'origine en acajou, lustres en cristal et fresques murales historiques.</p>
+                    </div>
+                </div>
+                
+                <!-- Caractéristique 3 -->
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-image">
+                        <img src="images/rose.jpg" alt="Escalier d'honneur en marbre">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Escalier d'Honneur</h3>
+                        <p>Marbre de Carrare importé d'Italie avec rampe en fer forgé aux motifs végétaux.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOUVELLE SECTION VISITE VIRTUELLE SÉPARÉE ET CENTRÉE -->
+    <section class="visite-virtuelle-section-separate">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Visite Virtuelle et Informations</h2>
+                <p class="section-subtitle">Explorez l'Hôtel de Ville et découvrez comment nous accueillons nos visiteurs</p>
+            </div>
+            
+            <div class="visite-virtuelle-container">
+                <div class="section-header" style="margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary-color); font-size: 1.5rem;">Découvrez Notre Patrimoine</h3>
+                </div>
+                
+                <div class="visite-info-grid">
+                    <!-- Info 1 -->
+                    <div class="visite-info-item animate-on-scroll">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Horaires d'Ouverture</h4>
+                            <p>Lundi-Vendredi : 8h-16h<br>Accueil public : 8h30-15h30</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Info 2 -->
+                    <div class="visite-info-item animate-on-scroll">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Accès et Localisation</h4>
+                            <p>Place Faidherbe, Île de Saint-Louis<br>Bus lignes 1, 3, 5</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Info 3 -->
+                    <div class="visite-info-item animate-on-scroll">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <h4>Informations Pratiques</h4>
+                            <p>Accès handicapés partiel<br>Photographie autorisée<br>Visites groupes sur réservation</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2.5rem;">
+                    <a href="contact.html#visite" class="btn" style="padding: 12px 25px; font-size: 1rem; background: var(--primary-color); color: white; margin-right: 10px;">
+                        <i class="fas fa-calendar-check"></i> Réserver une visite
+                    </a>
+                    <a href="contact.html" class="btn" style="padding: 12px 25px; font-size: 1rem; background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color);">
+                        <i class="fas fa-question-circle"></i> Plus d'informations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie d'Images avec toutes les images intégrées directement -->
+<section class="patrimoine-galerie" id="galerie">
+    <div class="container">
+        <h2 class="section-title">Galerie du Patrimoine</h2>
+        <p class="section-subtitle">Explorez la richesse architecturale et culturelle de Saint-Louis à travers notre collection d'images</p>
+        
+        <div class="galerie-grid" id="galerieGrid">
+            <!-- Grande Image 1 (Pont Faidherbe) -->
+            <div class="galerie-item galerie-item-large" data-category="monuments" data-id="1">
+                <img src="images/pont2.jpg" alt="Pont Faidherbe illuminé la nuit sur le fleuve Sénégal" loading="lazy">
+                <div class="galerie-overlay">
+                    <span class="galerie-category">Monuments</span>
+                    <h3>Pont Faidherbe - Symbole Éternel</h3>
+                    
+                    <div class="description-content">
+                        <p class="description-short">Le pont Faidherbe : Un symbole historique entre deux mondes...</p>
+                        <div class="description-full">
+                            <p>Enjambant majestueusement le fleuve Sénégal, le pont Faidherbe est bien plus qu'une simple infrastructure : c'est l'âme et le symbole emblématique de la ville de Saint-Louis.</p>
+                            <h4>Son architecture remarquable</h4>
+                            <p>Long d'environ 510 mètres, ce pont métallique à 7 travées relie l'île historique de Saint-Louis au continent africain. Sa silhouette distinctive, avec ses poutres en treillis et son tablier porté par des piles de pierre, évoque les grands ouvrages d'art du XIXe siècle. Une légende tenace, bien que fausse, prétend qu'il fut initialement conçu pour franchir le Danube en Autriche, avant d'être "redirigé" vers le Sénégal. En réalité, il fut bien conçu pour cet emplacement par l'ingénieur Gustave Eiffel (ou son bureau d'études), et construit entre 1895 et 1897.</p>
+                            <h4>Un lien vital et historique</h4>
+                            <p>Nommé en l'honneur du gouverneur Louis Faidherbe, qui a profondément marqué la colonie du Sénégal, le pont a été l'artère vitale de la ville pendant plus d'un siècle. Il a remplacé les traditionnels bateaux-passage et a permis le désenclavement de la presqu'île du Sor, stimulant le développement économique et les échanges.</p>
+                            <h4>Un témoin des époques</h4>
+                            <p>Il a vu défiler les âges : la période coloniale, les promenades des tirailleurs sénégalais, l'accession à l'Indépendance en 1960, et la vie quotidienne trépidante des Saint-Louisiens. Classé au patrimoine mondial de l'UNESCO au titre de l'île de Saint-Louis, il fait partie intégrante du paysage et de l'identité de la ville.</p>
+                            <h4>Aujourd'hui : entre tradition et modernité</h4>
+                            <p>Rénové et consolidé à plusieurs reprises (notamment en 2011 pour préserver son intégrité), le pont supporte toujours un flux intense de véhicules, de charrettes et de piétons. Le soir, sa silhouette s'illumine, offrant une vue magique sur le fleuve et les maisons coloniales aux façades colorées.</p>
+                            <p><strong>En résumé :</strong> Le pont Faidherbe est le gardien silencieux de Saint-Louis, un chef-d'œuvre d'ingénierie chargé d'histoire, et le lien physique et émotionnel qui unit le passé glorieux de l'ancienne capitale de l'Afrique occidentale française à son présent dynamique. Traverser ce pont, c'est faire un voyage dans le temps, entre le rythme paisible du fleuve et la douce brise de l'Atlantique tout proche.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="read-more-btn" onclick="toggleDescription(1)">
+                        <span class="btn-text">Lire tout le texte</span>
+                        <i class="fas fa-chevron-down btn-icon"></i>
+                    </button>
+                    
+                    <div class="galerie-date">
+                        <i class="far fa-calendar-alt"></i> 1897 • Entre l'île et le continent
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image 2 -->
+            <div class="galerie-item" data-category="architecture" data-id="2">
+                <img src="images/mairie.jpeg" alt="Façades coloniales colorées du centre historique" loading="lazy">
+                <div class="galerie-overlay">
+                    <span class="galerie-category">Architecture</span>
+                    <h3>Hôtel de Ville</h3>
+                    
+                    <div class="description-content">
+                        <p class="description-short">Perché à la pointe nord de l'île de Saint-Louis, face au majestueux pont Faidherbe...</p>
+                        <div class="description-full">
+                            <p>L'Hôtel de Ville est un édifice emblématique qui incarne l'élégance et l'histoire de l'ancienne capitale de l'Afrique Occidentale Française (AOF).</p>
+                            <h4>Une architecture coloniale remarquable</h4>
+                            <p>Bâti en 1890, le bâtiment est un exemple splendide de l'architecture coloniale de la fin du XIXe siècle. Il présente une façade majestueuse, symétrique et imposante, caractérisée par une double volée d'escaliers en pierre convergeant vers l'entrée principale, des balcons en fer forgé élégants, et un beffroi central surmonté d'un clocher qui domine le paysage urbain.</p>
+                            <h4>Un lieu chargé d'histoire</h4>
+                            <p>Plus qu'une simple mairie, ce bâtiment a été le centre névralgique du pouvoir colonial en Afrique de l'Ouest. Après l'indépendance du Sénégal en 1960, il est naturellement devenu l'Hôtel de Ville, abritant l'administration municipale et symbolisant la continuité du pouvoir et de la gouvernance locale.</p>
+                            <h4>Un emplacement symbolique</h4>
+                            <p>Sa situation géographique est hautement symbolique. Placé face au pont Faidherbe (lien avec le continent) et à l'embouchure du fleuve, il regarde à la fois vers l'intérieur des terres et vers l'océan Atlantique, rappelant le rôle historique de Saint-Louis comme port de commerce et carrefour des cultures.</p>
+                            <h4>Aujourd'hui : Un monument vivant</h4>
+                            <p>L'Hôtel de Ville est toujours un lieu administratif actif, mais c'est aussi un monument historique préservé. Sa façade est l'une des plus photographiées de la ville. Durant le fameux Festival International de Jazz de Saint-Louis, la place face au bâtiment s'anime et devient un lieu de rassemblement et de spectacles.</p>
+                            <p><strong>En résumé :</strong> L'Hôtel de Ville de Saint-Louis est l'incarnation architecturale de l'âme de la ville. Avec sa silhouette imposante et gracieuse, il raconte à lui seul les chapitres de l'histoire coloniale et post-coloniale.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="read-more-btn" onclick="toggleDescription(2)">
+                        <span class="btn-text">Lire tout le texte</span>
+                        <i class="fas fa-chevron-down btn-icon"></i>
+                    </button>
+                    
+                    <div class="galerie-date">
+                        <i class="far fa-calendar-alt"></i> 1890 • Avenue Blaise Diagne
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Grande Image 3 (Ruelle) -->
+            <div class="galerie-item galerie-item-large" data-category="vie" data-id="3">
+                <img src="images/pave.jpeg" alt="Ruelle pavée typique du vieux Saint-Louis" loading="lazy">
+                <div class="galerie-overlay">
+                    <span class="galerie-category">Vie Urbaine</span>
+                    <h3>Ruelles Pavées Historiques</h3>
+                    
+                    <div class="description-content">
+                        <p class="description-short">Les ruelles étroites et pavées du centre historique conservent l'authenticité...</p>
+                        <div class="description-full">
+                            <p>Les ruelles pavées de Saint-Louis constituent l'un des charmes les plus authentiques de la vieille ville. Ces artères étroites et sinueuses, héritées du tissu urbain du XIXe siècle, racontent l'histoire quotidienne des Saint-Louisiens à travers les époques.</p>
+                            <h4>Un patrimoine préservé</h4>
+                            <p>Le pavage traditionnel en calade, réalisé avec des galets ou des pierres locales, témoigne d'un savoir-faire ancestral. Ce système ingénieux permettait non seulement le drainage efficace des eaux de pluie pendant la saison humide, mais aussi de maintenir la fraîcheur dans les rues étroites.</p>
+                            <h4>Une ambiance unique</h4>
+                            <p>Se perdre dans ces ruelles, c'est découvrir l'âme secrète de Saint-Louis. Les façades colorées des maisons coloniales se reflètent sur les pierres luisantes, tandis que les balcons en fer forgé semblent se pencher pour observer le passant. L'alternance d'ombre et de lumière crée une atmosphère particulière, renforcée par les bruits de la vie quotidienne.</p>
+                            <h4>Un témoignage vivant</h4>
+                            <p>Ces rues ne sont pas de simples vestiges du passé : elles constituent toujours l'épine dorsale de la vie insulaire. On y voit encore les enfants jouer, les artisans travailler, et les habitants échanger des nouvelles sur le pas de leur porte. Elles relient les places animées aux cours intérieures plus tranquilles, dessinant une cartographie humaine de la ville.</p>
+                            <p><strong>En résumé :</strong> Les ruelles pavées de Saint-Louis sont les veines à travers lesquelles bat le cœur de la ville historique. Elles incarnent parfaitement le mariage entre patrimoine architectural préservé et vie urbaine vibrante, offrant aux visiteurs une immersion totale dans l'authenticité saint-louisienne.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="read-more-btn" onclick="toggleDescription(3)">
+                        <span class="btn-text">Lire tout le texte</span>
+                        <i class="fas fa-chevron-down btn-icon"></i>
+                    </button>
+                    
+                    <div class="galerie-date">
+                        <i class="far fa-calendar-alt"></i> XIXe siècle • Quartier Sud de l'île
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- NOUVELLE SECTION GALERIE PHOTOS SÉPARÉE ET CENTRÉE -->
+    <section class="gallery-section-separate">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Galerie Photos</h2>
+                <p class="section-subtitle">Découvrez l'Hôtel de Ville sous tous ses angles</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Photo 1 -->
+                <div class="gallery-item animate-on-scroll">
+                    <img src="images/ndart.jpeg" alt="Façade principale de jour">
+                    <div class="gallery-overlay">
+                        <h4>Façade Principale</h4>
+                        <p>Vue de jour avec ses colonnes corinthiennes caractéristiques</p>
+                    </div>
+                </div>
+                
+                <!-- Photo 2 -->
+                <div class="gallery-item animate-on-scroll">
+                    <img src="images/pave.jpeg" alt="Salle du Conseil Municipal">
+                    <div class="gallery-overlay">
+                        <h4>Salle du Conseil</h4>
+                        <p>Lieu de décision démocratique avec mobilier historique</p>
+                    </div>
+                </div>
+                
+                <!-- Photo 3 -->
+                <div class="gallery-item animate-on-scroll">
+                    <img src="images/mairie1.jpeg" alt="Escalier d'honneur">
+                    <div class="gallery-overlay">
+                        <h4>Escalier d'Honneur</h4>
+                        <p>Marbre de Carrare et rampe en fer forgé artisanal</p>
+                    </div>
+                </div>
+                
+                <!-- Photo 4 -->
+                <div class="gallery-item animate-on-scroll">
+                    <img src="images/mairie.jpeg" alt="Hôtel de Ville illuminé la nuit">
+                    <div class="gallery-overlay">
+                        <h4>Illuminations Nocturnes</h4>
+                        <p>Mise en lumière du patrimoine architectural</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOUVELLE SECTION PARTENAIRES SÉPARÉE ET CENTRÉE -->
+    <section class="partenaires-section-separate" id="partenaires-separate">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Villes Partenaires</h2>
+                <p class="section-subtitle">Nos partenariats internationaux</p>
+            </div>
+            
+            <div class="partenaires-grid">
+                <!-- Partenaire 1 - Liège -->
+                <div class="partenaire-card animate-on-scroll">
+                    <div class="partenaire-logo">
+                        <img src="images/Liege.jpeg" alt="Logo Ville de Liège">
+                    </div>
+                    <div class="partenaire-content">
+                        <h3>Ville de Liège</h3>
+                        <p>Belgique - Partenariat historique depuis 1980. Coopération dans les domaines culturels, éducatifs et de développement urbain durable.</p>
+                        <div style="margin-top: 0.5rem; color: var(--primary-color); font-size: 0.85rem;">
+                            <i class="fas fa-handshake"></i> Partenaire depuis 40 ans
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Partenaire 2 - Lille -->
+                <div class="partenaire-card animate-on-scroll">
+                    <div class="partenaire-logo">
+                        <img src="images/Lille.jpeg" alt="Logo Ville de Lille">
+                    </div>
+                    <div class="partenaire-content">
+                        <h3>Ville de Lille</h3>
+                        <p>France - Jumelage actif depuis 1992. Échanges dans les domaines économique, universitaire et de la jeunesse.</p>
+                        <div style="margin-top: 0.5rem; color: var(--primary-color); font-size: 0.85rem;">
+                            <i class="fas fa-university"></i> Coopération universitaire
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Partenaire 3 - Fès -->
+                <div class="partenaire-card animate-on-scroll">
+                    <div class="partenaire-logo">
+                        <img src="images/Fes.jpeg" alt="Logo Ville de Fès">
+                    </div>
+                    <div class="partenaire-content">
+                        <h3>Ville de Fès</h3>
+                        <p>Maroc - Accord de coopération depuis 2005. Partage d'expertise en préservation du patrimoine UNESCO et tourisme culturel.</p>
+                        <div style="margin-top: 0.5rem; color: var(--primary-color); font-size: 0.85rem;">
+                            <i class="fas fa-archway"></i> Patrimoine UNESCO
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Partenaire 4 - Toulouse -->
+                <div class="partenaire-card animate-on-scroll">
+                    <div class="partenaire-logo">
+                        <img src="images/Toulouse.jpeg" alt="Logo Mairie de Toulouse">
+                    </div>
+                    <div class="partenaire-content">
+                        <h3>Mairie de Toulouse</h3>
+                        <p>France - Partenariat technique depuis 2010. Collaboration dans les domaines de l'innovation urbaine et du développement numérique.</p>
+                        <div style="margin-top: 0.5rem; color: var(--primary-color); font-size: 0.85rem;">
+                            <i class="fas fa-laptop-code"></i> Innovation numérique
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.2rem;">Coopération Internationale</h3>
+                <p style="color: #666; max-width: 700px; margin: 0 auto; line-height: 1.5; font-size: 0.95rem;">
+                    La Mairie de Saint-Louis entretient des relations de coopération décentralisée avec plusieurs villes à travers le monde. Ces partenariats permettent des échanges culturels, techniques et éducatifs bénéfiques pour le développement de notre ville.
+                </p>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Hôtel de Ville de Saint-Louis</h3>
+                    <p>Siège historique de la mairie, monument classé au patrimoine mondial de l'UNESCO depuis l'an 2000. Symbole du pouvoir municipal et de l'histoire de Saint-Louis.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navigation Rapide</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="ville.html">Patrimoine UNESCO</a></li>
+                        <li><a href="mairie.html">La Ville</a></li>
+                        <li><a href="demarches.html">Démarches</a></li>
+                        <li><a href="hotel-ville.html">Hôtel de Ville</a></li>
+                        <li><a href="blog.html">Actualités</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Hôtel de Ville</h4>
+                    <p><i class="fas fa-phone"></i> +221 33 961 10 10</p>
+                    <p><i class="fas fa-envelope"></i> hoteldeville@mairie-saintlouis.sn</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Place Faidherbe, Île Saint-Louis</p>
+                    <p><i class="fas fa-clock"></i> Lundi-Vendredi: 8h-16h</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Mairie de Saint-Louis/BCM group.</p>
+                
+        </div>
+    </footer>
+
+    <!-- Bouton Retour en Haut -->
+    <button class="back-to-top" id="backToTop" aria-label="Retour en haut de la page">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Script spécifique à la page Hôtel de Ville
+        document.addEventListener('DOMContentLoaded', function() {
+            // SLIDER DE 2 IMAGES DANS LE HEADER
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            let currentSlide = 0;
+            const slideInterval = 5000; // Change d'image toutes les 5 secondes
+            
+            function showSlide(index) {
+                // Cacher toutes les slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                // Retirer la classe active de tous les dots
+                dots.forEach(dot => {
+                    dot.classList.remove('active');
+                });
+                
+                // Afficher la slide correspondante
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // Gestion des clics sur les dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Démarrer le slider automatique
+            let slideTimer = setInterval(nextSlide, slideInterval);
+            
+            // Arrêter le slider quand l'utilisateur interagit
+            const sliderContainer = document.querySelector('.slider-container');
+            if (sliderContainer) {
+                sliderContainer.addEventListener('mouseenter', () => {
+                    clearInterval(slideTimer);
+                });
+                
+                sliderContainer.addEventListener('mouseleave', () => {
+                    slideTimer = setInterval(nextSlide, slideInterval);
+                });
+            }
+            
+            // Gestion des images de la galerie (lightbox)
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const imgSrc = this.querySelector('img').src;
+                    const imgAlt = this.querySelector('img').alt;
+                    const overlayText = this.querySelector('.gallery-overlay h4').textContent;
+                    
+                    // Créer une lightbox
+                    const lightbox = document.createElement('div');
+                    lightbox.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.95);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 10000;
+                        padding: 20px;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    `;
+                    
+                    const lightboxImg = document.createElement('img');
+                    lightboxImg.src = imgSrc;
+                    lightboxImg.alt = imgAlt;
+                    lightboxImg.style.cssText = `
+                        max-width: 90%;
+                        max-height: 70vh;
+                        object-fit: contain;
+                        border-radius: 5px;
+                        transform: scale(0.9);
+                        transition: transform 0.3s ease;
+                    `;
+                    
+                    const lightboxCaption = document.createElement('div');
+                    lightboxCaption.textContent = overlayText;
+                    lightboxCaption.style.cssText = `
+                        color: white;
+                        margin-top: 20px;
+                        font-size: 1.2rem;
+                        text-align: center;
+                        opacity: 0;
+                        transform: translateY(20px);
+                        transition: all 0.3s ease 0.1s;
+                    `;
+                    
+                    const closeBtn = document.createElement('button');
+                    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    closeBtn.style.cssText = `
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 2rem;
+                        cursor: pointer;
+                        opacity: 0;
+                        transform: translateY(-20px);
+                        transition: all 0.3s ease;
+                    `;
+                    
+                    lightbox.appendChild(closeBtn);
+                    lightbox.appendChild(lightboxImg);
+                    lightbox.appendChild(lightboxCaption);
+                    document.body.appendChild(lightbox);
+                    
+                    // Animation d'entrée
+                    setTimeout(() => {
+                        lightbox.style.opacity = '1';
+                        lightboxImg.style.transform = 'scale(1)';
+                        lightboxCaption.style.opacity = '1';
+                        lightboxCaption.style.transform = 'translateY(0)';
+                        closeBtn.style.opacity = '1';
+                        closeBtn.style.transform = 'translateY(0)';
+                    }, 10);
+                    
+                    // Fermer la lightbox
+                    closeBtn.addEventListener('click', closeLightbox);
+                    lightbox.addEventListener('click', (e) => {
+                        if (e.target === lightbox) closeLightbox();
+                    });
+                    
+                    // Échap pour fermer
+                    document.addEventListener('keydown', function escClose(e) {
+                        if (e.key === 'Escape') {
+                            closeLightbox();
+                            document.removeEventListener('keydown', escClose);
+                        }
+                    });
+                    
+                    function closeLightbox() {
+                        lightbox.style.opacity = '0';
+                        setTimeout(() => {
+                            if (lightbox.parentNode) {
+                                document.body.removeChild(lightbox);
+                            }
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Bouton retour en haut
+            const backToTopBtn = document.getElementById('backToTop');
+            if (backToTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                });
+                
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            // Animation des stats au scroll
+            const statsSection = document.querySelector('.hotel-stats');
+            if (statsSection) {
+                const statsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const statNumbers = document.querySelectorAll('.stat-number');
+                            statNumbers.forEach(stat => {
+                                const finalValue = stat.textContent;
+                                let currentValue = 0;
+                                const increment = finalValue.replace(/\D/g, '') / 30;
+                                const timer = setInterval(() => {
+                                    currentValue += increment;
+                                    if (currentValue >= parseInt(finalValue.replace(/\D/g, ''))) {
+                                        stat.textContent = finalValue;
+                                        clearInterval(timer);
+                                    } else {
+                                        stat.textContent = Math.floor(currentValue).toLocaleString();
+                                    }
+                                }, 50);
+                            });
+                            statsObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                statsObserver.observe(statsSection);
+            }
+            
+            // Animation des éléments au scroll
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => observer.observe(el));
+            
+            // Gestion du menu mobile
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = mobileMenu.classList.contains('active') 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                });
+                
+                // Fermer le menu en cliquant sur un lien
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
