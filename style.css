@@ -5152,6 +5152,89 @@ body.admin-page .footer-contact i {
     .partenaires-section-separate .section-title {
         font-size: 1.8rem;
     }
+    
+    /* CORRECTION POUR LE BOUTON MENU MOBILE */
+    .mobile-menu-btn {
+        display: block !important;
+        position: absolute !important;
+        right: 20px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        background: var(--primary-color) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 5px !important;
+        padding: 12px 15px !important;
+        font-size: 1.2rem !important;
+        cursor: pointer !important;
+        z-index: 1001 !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .mobile-menu-btn:hover {
+        background: var(--secondary-color) !important;
+        transform: translateY(-50%) scale(1.05) !important;
+    }
+    
+    /* Menu mobile caché par défaut */
+    .mobile-menu {
+        display: none !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: white !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+        z-index: 1000 !important;
+        animation: slideDown 0.3s ease forwards !important;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Menu mobile visible quand actif */
+    .mobile-menu.active {
+        display: block !important;
+    }
+    
+    .mobile-menu ul {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .mobile-menu li {
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+    
+    .mobile-menu li:last-child {
+        border-bottom: none !important;
+    }
+    
+    .mobile-menu a {
+        display: block !important;
+        padding: 15px 20px !important;
+        color: #333 !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        font-weight: 500 !important;
+    }
+    
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+        background: var(--primary-color) !important;
+        color: white !important;
+        padding-left: 25px !important;
+    }
 }
 
 /* Pour les très petits écrans */
@@ -5164,8 +5247,19 @@ body.admin-page .footer-contact i {
     .partenaires-section-separate .section-title {
         font-size: 1.6rem;
     }
+    
+    /* Ajustements supplémentaires pour très petits écrans */
+    .mobile-menu-btn {
+        padding: 10px 12px !important;
+        font-size: 1.1rem !important;
+        right: 15px !important;
+    }
+    
+    .mobile-menu a {
+        padding: 12px 15px !important;
+        font-size: 0.95rem !important;
+    }
 }
-
 /* Assurer que les cartes de partenaires sont bien centrées */
 .partenaires-section-separate .partenaire-card {
     background-color: white;
