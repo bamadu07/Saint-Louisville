@@ -1,0 +1,1 @@
+Ce projet est une app web qui met en valeur la ville de Saint-Louis du SENEGAL. Elle a pour but de presenter la ville avec ses histoires, cultures, patrimoines et actualites, de presenter la mairie de la ville en montrant son role et ses missions, l'equipe et les services municipaux mais aussi de digitaliser les demarches administratives de la mairie.
