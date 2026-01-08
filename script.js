@@ -50,144 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
     
-    // NOUVEAU : Carrousel des Adjoints Ultra-Fluide et Automatique - MODIFIÉ POUR 1 SECONDE
-    const adjointsTrack = document.getElementById('adjointsTrack');
-    const adjointsCards = document.querySelectorAll('.adjoint-carousel-card');
-    const adjointsDotsContainer = document.getElementById('adjointsDots');
-    
-    let adjointsCurrentSlide = 0;
-    let adjointsCardsPerView = 1;
-    let isAnimating = false;
-    let adjointsAutoplay;
-    
-    // Déterminer le nombre de cartes visibles selon la largeur de l'écran
-    function updateAdjointsCardsPerView() {
-        if (window.innerWidth >= 1024) {
-            adjointsCardsPerView = 3;
-        } else if (window.innerWidth >= 768) {
-            adjointsCardsPerView = 2;
-        } else {
-            adjointsCardsPerView = 1;
-        }
-    }
-    
-    // Initialiser le carrousel des adjoints
-    function initAdjointsCarousel() {
-        updateAdjointsCardsPerView();
-        
-        // Créer les points de navigation
-        adjointsDotsContainer.innerHTML = '';
-        const totalDots = Math.ceil(adjointsCards.length / adjointsCardsPerView);
-        
-        for (let i = 0; i < totalDots; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('adjoints-dot');
-            if (i === 0) dot.classList.add('active');
-            dot.dataset.index = i;
-            
-            dot.addEventListener('click', () => {
-                if (!isAnimating) {
-                    adjointsCurrentSlide = i;
-                    updateAdjointsCarousel();
-                    resetAutoplay();
-                }
-            });
-            
-            adjointsDotsContainer.appendChild(dot);
-        }
-        
-        updateAdjointsCarousel();
-        startAutoplay();
-    }
-    
-    function updateAdjointsCarousel() {
-        if (isAnimating) return;
-        
-        isAnimating = true;
-        const cardWidth = 100 / adjointsCardsPerView;
-        const translateX = adjointsCurrentSlide * cardWidth;
-        
-        // Animation fluide
-        adjointsTrack.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-        adjointsTrack.style.transform = `translateX(-${translateX}%)`;
-        
-        // Mettre à jour l'état des cartes
-        adjointsCards.forEach((card, index) => {
-            card.classList.remove('active');
-        });
-        
-        // Activer les cartes visibles
-        const startIndex = adjointsCurrentSlide * adjointsCardsPerView;
-        const endIndex = startIndex + adjointsCardsPerView;
-        
-        for (let i = startIndex; i < Math.min(endIndex, adjointsCards.length); i++) {
-            adjointsCards[i]?.classList.add('active');
-        }
-        
-        // Mettre à jour les points actifs
-        const dots = document.querySelectorAll('.adjoints-dot');
-        dots.forEach(dot => dot.classList.remove('active'));
-        if (dots[adjointsCurrentSlide]) {
-            dots[adjointsCurrentSlide].classList.add('active');
-        }
-        
-        // Réinitialiser l'animation
-        setTimeout(() => {
-            isAnimating = false;
-        }, 500);
-    }
-    
-    // Fonction pour passer à la slide suivante
-    function nextAdjointsSlide() {
-        if (!isAnimating) {
-            const maxSlide = Math.ceil(adjointsCards.length / adjointsCardsPerView) - 1;
-            adjointsCurrentSlide = adjointsCurrentSlide < maxSlide ? adjointsCurrentSlide + 1 : 0;
-            updateAdjointsCarousel();
-        }
-    }
-    
-    // MODIFIÉ : Défilement automatique toutes les 1 secondes
-    function startAutoplay() {
-        adjointsAutoplay = setInterval(() => {
-            nextAdjointsSlide();
-        }, 1000); // Change toutes les 1 seconde
-    }
-    
-    function resetAutoplay() {
-        clearInterval(adjointsAutoplay);
-        startAutoplay();
-    }
-    
-    // Gérer le redimensionnement de la fenêtre
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            updateAdjointsCardsPerView();
-            updateAdjointsCarousel();
-        }, 250);
-    });
-    
-    // Pause au survol
-    adjointsTrack.addEventListener('mouseenter', () => clearInterval(adjointsAutoplay));
-    adjointsTrack.addEventListener('mouseleave', () => startAutoplay());
-    
-    // Navigation au clavier
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft' && !isAnimating) {
-            const maxSlide = Math.ceil(adjointsCards.length / adjointsCardsPerView) - 1;
-            adjointsCurrentSlide = adjointsCurrentSlide > 0 ? adjointsCurrentSlide - 1 : maxSlide;
-            updateAdjointsCarousel();
-            resetAutoplay();
-        } else if (e.key === 'ArrowRight' && !isAnimating) {
-            nextAdjointsSlide();
-            resetAutoplay();
-        }
-    });
-    
-    // Initialiser le carrousel des adjoints
-    initAdjointsCarousel();
-    
     // Animation au défilement
     const observerOptions = {
         threshold: 0.1,
@@ -209,23 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         observer.observe(el);
-    });
-    
-    // Animation pour les cartes du carrousel
-    const carouselObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0) scale(1)';
-            }
-        });
-    }, observerOptions);
-    
-    adjointsCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px) scale(0.95)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        carouselObserver.observe(card);
     });
 });
 
@@ -633,373 +478,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    mobileMenuBtn.addEventListener('click', function() {
-        mobileMenu.classList.toggle('active');
-        this.innerHTML = mobileMenu.classList.contains('active') ? 
-            '<i class="fas fa-times"></i>' : 
-            '<i class="fas fa-bars"></i>';
-    });
-
-    // Fermer le menu mobile
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        });
-    });
-
-    // Filtrage des articles
-    const filterTabs = document.querySelectorAll('.filter-tab');
-    const blogCards = document.querySelectorAll('.blog-card');
-    
-    filterTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Animation du clic
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-            
-            // Mettre à jour l'onglet actif
-            filterTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            const selectedCategory = this.getAttribute('data-category');
-            
-            // Filtrer avec animation
-            blogCards.forEach((card, index) => {
-                const cardCategory = card.getAttribute('data-category');
-                
-                if (selectedCategory === 'all' || cardCategory === selectedCategory) {
-                    card.style.display = 'flex';
-                    setTimeout(() => {
-                        card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s forwards`;
-                    }, 50);
-                } else {
-                    card.style.animation = 'none';
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
-            });
-        });
-    });
-
-    // Recherche d'articles
-    const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
-    
-    function performSearch() {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        
-        if (searchTerm) {
-            searchButton.innerHTML = '<div class="loading"></div>';
-        }
-        
-        setTimeout(() => {
-            blogCards.forEach((card, index) => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const excerpt = card.querySelector('p').textContent.toLowerCase();
-                const category = card.querySelector('.blog-category').textContent.toLowerCase();
-                
-                if (searchTerm === '' || 
-                    title.includes(searchTerm) || 
-                    excerpt.includes(searchTerm) ||
-                    category.includes(searchTerm)) {
-                    
-                    card.style.display = 'flex';
-                    setTimeout(() => {
-                        card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s forwards`;
-                    }, 50);
-                } else {
-                    card.style.animation = 'none';
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
-            });
-            
-            searchButton.innerHTML = '<i class="fas fa-search"></i>';
-            
-            // Afficher un message si aucun résultat
-            const visibleCards = Array.from(blogCards).filter(card => 
-                card.style.display !== 'none'
-            );
-            
-            if (visibleCards.length === 0 && searchTerm !== '') {
-                const noResults = document.createElement('div');
-                noResults.className = 'no-results';
-                noResults.innerHTML = `
-                    <div style="text-align: center; padding: 60px 20px; grid-column: 1 / -1;">
-                        <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
-                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">Aucun résultat trouvé</h3>
-                        <p style="color: #666;">Essayez d'autres mots-clés ou explorez nos catégories.</p>
-                    </div>
-                `;
-                
-                if (!document.querySelector('.no-results')) {
-                    document.getElementById('blogGrid').appendChild(noResults);
-                }
-            } else {
-                const existingNoResults = document.querySelector('.no-results');
-                if (existingNoResults) {
-                    existingNoResults.remove();
-                }
-            }
-        }, 500);
-    }
-    
-    searchButton.addEventListener('click', performSearch);
-    searchInput.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            performSearch();
-        }
-    });
-
-    // Newsletter avec feedback
-    const newsletterForm = document.getElementById('newsletterForm');
-    
-    newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const emailInput = this.querySelector('input[type="email"]');
-        const submitBtn = this.querySelector('button');
-        const email = emailInput.value.trim();
-        
-        if (validateEmail(email)) {
-            const originalText = submitBtn.innerHTML;
-            
-            // Animation de chargement
-            submitBtn.innerHTML = '<div class="loading"></div>';
-            submitBtn.disabled = true;
-            
-            // Simulation d'envoi
-            setTimeout(() => {
-                // Succès
-                const successMessage = document.createElement('div');
-                successMessage.className = 'success-message';
-                successMessage.innerHTML = `
-                    <div style="background: rgba(46, 204, 113, 0.2); border: 2px solid #2ecc71; border-radius: var(--border-radius); padding: 20px; margin-top: 20px; text-align: center; animation: fadeInUp 0.5s;">
-                        <i class="fas fa-check-circle" style="color: #2ecc71; font-size: 2rem; margin-bottom: 10px;"></i>
-                        <h4 style="color: white; margin-bottom: 10px;">Inscription réussie !</h4>
-                        <p style="color: rgba(255,255,255,0.9);">Merci ! Vous recevrez bientôt nos actualités.</p>
-                    </div>
-                `;
-                
-                newsletterForm.parentNode.insertBefore(successMessage, newsletterForm.nextSibling);
-                
-                // Reset du formulaire
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                emailInput.value = '';
-                
-                // Supprimer le message après 5 secondes
-                setTimeout(() => {
-                    successMessage.remove();
-                }, 5000);
-            }, 1500);
-        } else {
-            // Animation d'erreur
-            emailInput.style.borderColor = '#e74c3c';
-            emailInput.style.boxShadow = '0 0 0 3px rgba(231, 76, 60, 0.2)';
-            
-            setTimeout(() => {
-                emailInput.style.borderColor = '';
-                emailInput.style.boxShadow = '';
-            }, 2000);
-        }
-    });
-    
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    // Animation au défilement
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Observer les éléments à animer
-    document.querySelectorAll('.featured-main, .featured-side, .blog-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(el);
-    });
-
-    // Smooth scroll pour les boutons Voir Plus
-    document.querySelectorAll('.see-more-btn, .featured-side-link, .read-more').forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (this.getAttribute('href') && this.getAttribute('href').startsWith('#')) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-
-    // Pagination interactive
-    const pageLinks = document.querySelectorAll('.page-link:not(.prev):not(.next)');
-    const prevBtn = document.querySelector('.page-link.prev');
-    const nextBtn = document.querySelector('.page-link.next');
-    let currentPage = 1;
-    
-    pageLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (this.classList.contains('active')) return;
-            
-            // Animation
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-            
-            // Mettre à jour la page active
-            pageLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            currentPage = parseInt(this.textContent);
-            
-            // Mettre à jour les boutons précédent/suivant
-            updatePaginationButtons();
-            
-            // Simuler le chargement de la page
-            simulatePageLoad(currentPage);
-        });
-    });
-    
-    prevBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentPage > 1) {
-            currentPage--;
-            updateActivePage();
-            simulatePageLoad(currentPage);
-        }
-    });
-    
-    nextBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentPage < 5) {
-            currentPage++;
-            updateActivePage();
-            simulatePageLoad(currentPage);
-        }
-    });
-    
-    function updateActivePage() {
-        pageLinks.forEach(link => {
-            link.classList.remove('active');
-            if (parseInt(link.textContent) === currentPage) {
-                link.classList.add('active');
-            }
-        });
-        updatePaginationButtons();
-    }
-    
-    function updatePaginationButtons() {
-        prevBtn.classList.toggle('disabled', currentPage === 1);
-        nextBtn.classList.toggle('disabled', currentPage === 5);
-    }
-    
-    function simulatePageLoad(page) {
-        const blogGrid = document.getElementById('blogGrid');
-        blogGrid.style.opacity = '0.5';
-        blogGrid.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            blogGrid.style.opacity = '1';
-            blogGrid.style.transform = 'translateY(0)';
-            blogGrid.style.transition = 'all 0.5s ease';
-            
-            // Réanimer les cartes
-            blogCards.forEach((card, index) => {
-                card.style.animation = 'none';
-                setTimeout(() => {
-                    card.style.animation = `fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s forwards`;
-                }, 50);
-            });
-        }, 300);
-    }
-
-    // Effet de survol amélioré pour les cartes
-    blogCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateY = ((x - centerX) / centerX) * 1;
-            const rotateX = ((centerY - y) / centerY) * 1;
-            
-            card.style.transform = `
-                translateY(-10px)
-                rotateX(${rotateX}deg)
-                rotateY(${rotateY}deg)
-            `;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
-        });
-    });
-
-    // Gestion du scroll pour le header
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            document.querySelector('header').style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            document.querySelector('header').style.backdropFilter = 'blur(20px)';
-        } else {
-            document.querySelector('header').style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
-            document.querySelector('header').style.backdropFilter = 'blur(10px)';
-        }
-        
-        lastScroll = currentScroll;
-    });
-
-    // Animation des boutons Voir Plus au survol
-    document.querySelectorAll('.see-more-btn').forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px)';
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-});
 document.addEventListener('DOMContentLoaded', function() {
     // ========== HEADER SLIDER ==========
     const headerSliderTrack = document.getElementById('headerSliderTrack');
@@ -2963,9 +2441,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
-
 // Fonction pour basculer l'affichage de la description
 function toggleDescription(itemId) {
     const item = document.querySelector(`.galerie-item[data-id="${itemId}"]`);
@@ -3001,4 +2476,549 @@ document.addEventListener('click', function(event) {
 });
 
 
+// ========== SCRIPT UNIFIÉ POUR TOUTES LES PAGES ==========
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Mairie de Saint-Louis - Chargement du script');
+    
+    // ========== FONCTION PRINCIPALE POUR LE MENU MOBILE ==========
+    function setupMobileMenu() {
+        console.log('Configuration du menu mobile...');
+        
+        // CRÉER LE BOUTON MENU MOBILE SI IL N'EXISTE PAS
+        let mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        if (!mobileMenuBtn) {
+            console.log('Création du bouton menu mobile...');
+            mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.id = 'mobileMenuBtn';
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.setAttribute('aria-label', 'Ouvrir le menu');
+            
+            // Ajouter au header
+            const header = document.querySelector('header');
+            if (header) {
+                header.appendChild(mobileMenuBtn);
+                console.log('Bouton menu ajouté au header');
+            }
+        }
+        
+        // CRÉER LE MENU MOBILE SI IL N'EXISTE PAS
+        let mobileMenu = document.getElementById('mobileMenu');
+        if (!mobileMenu) {
+            console.log('Création du menu mobile...');
+            mobileMenu = document.createElement('div');
+            mobileMenu.id = 'mobileMenu';
+            mobileMenu.className = 'mobile-menu';
+            
+            // Créer le contenu du menu
+            mobileMenu.innerHTML = `
+                <div class="mobile-menu-header">
+                    <button class="mobile-menu-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="mobile-nav"></nav>
+            `;
+            
+            // Ajouter au body
+            document.body.appendChild(mobileMenu);
+            console.log('Menu mobile ajouté au body');
+        }
+        
+        // COPIER LA NAVIGATION DU MENU DESKTOP DANS LE MENU MOBILE
+        function copyDesktopNavToMobile() {
+            const desktopNav = document.querySelector('nav.desktop-nav, header nav, .main-nav');
+            const mobileNavContainer = document.querySelector('.mobile-nav');
+            
+            if (desktopNav && mobileNavContainer) {
+                // Cloner la navigation desktop
+                const clonedNav = desktopNav.cloneNode(true);
+                clonedNav.className = 'mobile-nav-list';
+                
+                // Nettoyer les classes inutiles
+                clonedNav.querySelectorAll('*').forEach(el => {
+                    el.classList.remove('desktop-nav', 'main-nav');
+                });
+                
+                // Mettre à jour le contenu
+                mobileNavContainer.innerHTML = '';
+                mobileNavContainer.appendChild(clonedNav);
+                
+                console.log('Navigation copiée dans le menu mobile');
+            } else {
+                // Navigation par défaut si rien n'est trouvé
+                const defaultNav = `
+                    <ul class="mobile-nav-list">
+                        <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
+                        <li><a href="/ville.html"><i class="fas fa-city"></i> La Ville</a></li>
+                        <li><a href="/services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+                        <li><a href="/actualites.html"><i class="fas fa-newspaper"></i> Actualités</a></li>
+                        <li><a href="/galerie.html"><i class="fas fa-images"></i> Galerie</a></li>
+                        <li><a href="/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                `;
+                mobileNavContainer.innerHTML = defaultNav;
+                console.log('Navigation par défaut créée');
+            }
+        }
+        
+        // FONCTIONS DE GESTION DU MENU
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            document.body.classList.add('menu-open');
+            document.body.style.overflow = 'hidden';
+            
+            // Animation de l'icône
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) icon.className = 'fas fa-times';
+            
+            console.log('Menu mobile ouvert');
+        }
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+            
+            // Animation de l'icône
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) icon.className = 'fas fa-bars';
+            
+            console.log('Menu mobile fermé');
+        }
+        
+        function toggleMobileMenu() {
+            if (mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+        
+        // GESTION DU REDIMENSIONNEMENT
+        function handleResize() {
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                mobileMenuBtn.style.display = 'flex';
+                copyDesktopNavToMobile();
+            } else {
+                mobileMenuBtn.style.display = 'none';
+                closeMobileMenu();
+            }
+        }
+        
+        // INITIALISATION
+        function initMobileMenu() {
+            // Configurer les événements
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMobileMenu();
+            });
+            
+            // Bouton de fermeture
+            const closeBtn = mobileMenu.querySelector('.mobile-menu-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeMobileMenu();
+                });
+            }
+            
+            // Fermer en cliquant sur un lien
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    setTimeout(closeMobileMenu, 300);
+                }
+            });
+            
+            // Fermer en cliquant à l'extérieur
+            document.addEventListener('click', function(e) {
+                if (mobileMenu.classList.contains('active') && 
+                    !mobileMenu.contains(e.target) && 
+                    !mobileMenuBtn.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Gérer la touche Échap
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Initialiser selon la taille d'écran
+            handleResize();
+            
+            // Surveiller le redimensionnement
+            window.addEventListener('resize', function() {
+                clearTimeout(window.resizeTimer);
+                window.resizeTimer = setTimeout(handleResize, 250);
+            });
+            
+            console.log('Menu mobile initialisé avec succès');
+        }
+        
+        // Démarrer l'initialisation
+        initMobileMenu();
+    }
+    
+    // ========== SMOOTH SCROLL POUR TOUTES LES PAGES ==========
+    function setupSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const header = document.querySelector('header');
+                    const offset = header ? header.offsetHeight : 80;
+                    
+                    window.scrollTo({
+                        top: target.offsetTop - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    // ========== BOUTON RETOUR EN HAUT ==========
+    function setupBackToTop() {
+        // Créer le bouton s'il n'existe pas
+        let backBtn = document.getElementById('backToTop');
+        if (!backBtn) {
+            backBtn = document.createElement('button');
+            backBtn.id = 'backToTop';
+            backBtn.className = 'back-to-top';
+            backBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            backBtn.setAttribute('aria-label', 'Retour en haut');
+            document.body.appendChild(backBtn);
+        }
+        
+        // Afficher/masquer selon le scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backBtn.classList.add('visible');
+            } else {
+                backBtn.classList.remove('visible');
+            }
+        });
+        
+        // Gérer le clic
+        backBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // ========== ANIMATIONS AU SCROLL ==========
+    function setupScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        // Observer tous les éléments avec data-animate
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            observer.observe(el);
+        });
+    }
+    
+    // ========== INITIALISATION COMPLÈTE ==========
+    function initAll() {
+        try {
+            console.log('Début de l\'initialisation...');
+            
+            // 1. Menu mobile (prioritaire)
+            setupMobileMenu();
+            
+            // 2. Smooth scroll
+            setupSmoothScroll();
+            
+            // 3. Bouton retour en haut
+            setupBackToTop();
+            
+            // 4. Animations
+            setupScrollAnimations();
+            
+            // 5. Gestion des formulaires
+            setupForms();
+            
+            console.log('Initialisation terminée avec succès');
+        } catch (error) {
+            console.error('Erreur lors de l\'initialisation:', error);
+        }
+    }
+    
+    // ========== GESTION DES FORMULAIRES ==========
+    function setupForms() {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validation basique
+                const inputs = this.querySelectorAll('input[required], textarea[required], select[required]');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        input.classList.add('error');
+                        isValid = false;
+                    } else {
+                        input.classList.remove('error');
+                    }
+                });
+                
+                if (isValid) {
+                    // Simulation d'envoi
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        const originalText = submitBtn.innerHTML;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+                        submitBtn.disabled = true;
+                        
+                        setTimeout(() => {
+                            alert('Message envoyé avec succès !');
+                            this.reset();
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        }, 1500);
+                    }
+                }
+            });
+        });
+    }
+    
+    // ========== DÉMARRER TOUT ==========
+    // Attendre un peu pour être sûr que le DOM est chargé
+    setTimeout(initAll, 100);
+});
 
+// ========== CSS DYNAMIQUE POUR LE MENU MOBILE ==========
+// Ajouter les styles CSS directement dans le JS pour garantir qu'ils sont présents
+(function() {
+    const style = document.createElement('style');
+    style.textContent = `
+        /* ========== MENU MOBILE ========== */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            background: #0a3d62;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 1002;
+            box-shadow: 0 4px 12px rgba(10, 61, 98, 0.3);
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: #1e5c8a;
+            transform: scale(1.05);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            z-index: 1001;
+            padding: 80px 20px 30px;
+            overflow-y: auto;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu-header {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .mobile-menu-close {
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 50%;
+            color: #333;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-nav-list li {
+            margin-bottom: 10px;
+        }
+        
+        .mobile-nav-list a {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .mobile-nav-list a:hover,
+        .mobile-nav-list a.active {
+            background: #0a3d62;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .mobile-nav-list a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Overlay */
+        body.menu-open::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        
+        /* Bouton retour en haut */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #0a3d62;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(10, 61, 98, 0.3);
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .back-to-top.visible {
+            display: flex;
+        }
+        
+        .back-to-top:hover {
+            background: #1e5c8a;
+            transform: translateY(-3px);
+        }
+        
+        /* Animation des éléments */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        [data-animate].animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+            
+            .desktop-nav,
+            nav:not(.mobile-nav) {
+                display: none !important;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            .mobile-menu {
+                display: none !important;
+            }
+            
+            .desktop-nav {
+                display: flex !important;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+})();
+
+// ========== FALLBACK POUR LES ANCIENS NAVIGATEURS ==========
+if (typeof window.requestAnimationFrame === 'undefined') {
+    window.requestAnimationFrame = function(callback) {
+        return setTimeout(callback, 1000 / 60);
+    };
+}
+
+if (typeof window.cancelAnimationFrame === 'undefined') {
+    window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+    };
+}
+
+// ========== DÉTECTION DE LA PAGE ACTIVE ==========
+(function() {
+    const currentPath = window.location.pathname;
+    const links = document.querySelectorAll('a[href]');
+    
+    links.forEach(link => {
+        const linkPath = new URL(link.href, window.location.origin).pathname;
+        if (linkPath === currentPath) {
+            link.classList.add('active');
+        }
+    });
+})();
