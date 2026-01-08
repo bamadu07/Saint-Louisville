@@ -753,7 +753,7 @@ header {
     margin-bottom: 15px;
 }
 
-/* Adjoints Section - CARROUSEL AUTOMATIQUE 7 SECONDES */
+/* Adjoints Section - CARROUSEL AUTOMATIQUE 7 SECONDES 
 .adjoints-section {
     padding: 2.5rem 0;
     background-color: white;
@@ -784,7 +784,7 @@ header {
     gap: 30px;
     padding: 20px 0;
     will-change: transform;
-}
+}*/
 
 /* Animation automatique pour le carrousel */
 @keyframes autoSlide {
@@ -810,7 +810,7 @@ header {
         animation: autoSlide 28s infinite ease-in-out;
     }
     
-    /* Pause l'animation au survol */
+    /* Pause l'animation au survol 
     .adjoints-track:hover {
         animation-play-state: paused;
     }
@@ -953,7 +953,259 @@ header {
 
 .adjoints-dot:hover {
     background: var(--accent-color);
-    transform: scale(1.3);
+    transform: scale(1.3); */
+}
+
+/* Section Adjoints - Style inspiré de la timeline */
+.adjoints-section {
+    padding: 3rem 0;
+    background-color: white;
+    position: relative;
+}
+
+.adjoints-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.adjoints-section .section-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.adjoints-section .section-title {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    position: relative;
+    display: inline-block;
+}
+
+.adjoints-section .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+}
+
+/* Conteneur du carrousel */
+.adjoints-carousel-container {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 15px;
+}
+
+/* Carrousel */
+.adjoints-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--card-radius);
+}
+
+/* Piste du carrousel */
+.adjoints-track {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) #f0f0f0;
+    align-items: stretch;
+}
+
+.adjoints-track::-webkit-scrollbar {
+    height: 6px;
+}
+
+.adjoints-track::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.adjoints-track::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+/* Carte d'adjoint */
+.adjoint-carousel-card {
+    flex: 0 0 320px;
+    background: white;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    border-top: 4px solid var(--primary-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+}
+
+.adjoint-carousel-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* Conteneur photo */
+.adjoint-photo-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.adjoint-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.adjoint-carousel-card:hover .adjoint-photo {
+    transform: scale(1.05);
+}
+
+/* Badge d'information */
+.adjoint-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 1.5rem 1rem 1rem;
+    text-align: center;
+}
+
+.adjoint-nom {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.adjoint-fonction {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.adjoint-role {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* Contenu de la carte */
+.adjoint-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.adjoint-quote {
+    font-style: italic;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-weight: 500;
+}
+
+.adjoint-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Contrôles */
+.adjoints-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+}
+
+.adjoints-dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.adjoints-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+}
+
+.adjoints-dot:hover {
+    background: #bbb;
+}
+
+.adjoints-dot.active {
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .adjoints-section {
+        padding: 2rem 0;
+    }
+    
+    .adjoints-track {
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+    }
+    
+    .adjoint-carousel-card {
+        flex: 0 0 280px;
+        min-height: 320px;
+    }
+    
+    .adjoint-photo-container {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .adjoints-section .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .adjoint-carousel-card {
+        flex: 0 0 260px;
+        min-height: 300px;
+    }
+    
+    .adjoint-photo-container {
+        height: 160px;
+    }
+    
+    .adjoint-content {
+        padding: 1rem;
+    }
 }
 
 /* Services Rapides */
@@ -4230,17 +4482,17 @@ body.admin-page .footer-contact i {
             margin-bottom: 2rem;
         }
         
-        /* Box Statistiques en JAUNE D'OR */
+        /* Box Statistiques en JAUNE D'OR - SUPPRIMER L'ESPACE */
         .hotel-stats {
-            padding: 20px;
+            padding: 20px 0; /* Supprimé le padding vertical supérieur */
             background: linear-gradient(135deg, #FFD700, #FFC800, #FFB800);
             color: white;
             position: relative;
             overflow: hidden;
             width: 100%;
-            margin: 0;
+            margin: 0; /* Supprimé toute marge */
             border-radius: 0;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: none; /* Supprimé l'ombre */
         }
         
         .hotel-stats::before {
@@ -4259,6 +4511,7 @@ body.admin-page .footer-contact i {
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            padding-top: 10px; /* Réduit le padding */
         }
         
         .hotel-stats .stats-grid {
@@ -4268,7 +4521,7 @@ body.admin-page .footer-contact i {
             position: relative;
             z-index: 1;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 15px 20px; /* Réduit le padding bas */
             max-width: 1200px;
         }
         
@@ -4322,17 +4575,17 @@ body.admin-page .footer-contact i {
             line-height: 1.2;
         }
         
-        /* Section Histoire - CENTRÉE */
+        /* Section Histoire - SUPPRIMER LES ESPACES */
         .histoire-section {
-            padding: 2.5rem 0;
+            padding: 0; /* Supprimé le padding */
             background-color: white;
         }
         
         .histoire-intro {
             text-align: center;
             max-width: 800px;
-            margin: 0 auto 2rem;
-            padding: 1.5rem;
+            margin: 0 auto; /* Supprimé la marge basse */
+            padding: 20px 15px; /* Réduit le padding */
         }
         
         .histoire-intro h2 {
@@ -4362,18 +4615,19 @@ body.admin-page .footer-contact i {
             margin-top: 1.5rem;
         }
         
-        /* Timeline horizontale améliorée - REVOIR POSITIONNEMENT DES ANNÉES */
+        /* Timeline horizontale améliorée - SUPPRIMER LES ESPACES */
         .histoire-timeline-horizontal {
             position: relative;
-            margin: 2rem auto;
+            margin: 0 auto; /* Supprimé la marge verticale */
             max-width: 1200px;
+            padding: 0 15px; /* Ajouté uniquement un padding latéral */
         }
         
         .timeline-track {
             display: flex;
             overflow-x: auto;
             gap: 1.5rem;
-            padding: 1.5rem 1rem;
+            padding: 1.5rem 1rem; /* Réduit le padding */
             scrollbar-width: thin;
             scrollbar-color: var(--primary-color) #f0f0f0;
             align-items: stretch;
@@ -4459,15 +4713,16 @@ body.admin-page .footer-contact i {
             margin-top: auto;
         }
         
-        /* Section Architecture - CENTRÉE avec séparation */
+        /* Section Architecture - SUPPRIMER LES ESPACES */
         .architecture-section {
-            padding: 2.5rem 0;
+            padding: 0; /* Supprimé le padding */
             background-color: #f8f9fa;
         }
         
         .architecture-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 0; /* Supprimé la marge basse */
+            padding: 20px 15px; /* Ajouté un padding */
         }
         
         .architecture-header h2 {
@@ -4488,6 +4743,7 @@ body.admin-page .footer-contact i {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
+            padding: 0 15px 20px; /* Réduit le padding */
         }
         
         @media (min-width: 768px) {
@@ -4546,42 +4802,43 @@ body.admin-page .footer-contact i {
         
         /* NOUVELLE SECTION VISITE VIRTUELLE SÉPARÉE ET CENTRÉE */
         .visite-virtuelle-section-separate {
-    padding: 2.5rem 0;
-    background-color: white;
-    text-align: center;
-}
-
-.visite-virtuelle-section-separate .section-header {
-    margin-bottom: 2rem;
-    text-align: center; /* Ajout pour centrer le header */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre les éléments enfants horizontalement */
-}
-
-.visite-virtuelle-section-separate .section-title {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    text-align: center; /* Assure que le titre est centré */
-}
-
-.visite-virtuelle-section-separate .section-subtitle {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto;
-    font-style: italic;
-    text-align: center; /* Assure que le sous-titre est centré */
-}
+            padding: 0; /* Supprimé le padding */
+            background-color: white;
+            text-align: center;
+        }
+        
+        .visite-virtuelle-section-separate .section-header {
+            margin-bottom: 0; /* Supprimé la marge basse */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px; /* Ajouté un padding */
+        }
+        
+        .visite-virtuelle-section-separate .section-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .visite-virtuelle-section-separate .section-subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+            text-align: center;
+        }
         
         /* Conteneur pour la visite virtuelle */
         .visite-virtuelle-container {
             background: white;
             border-radius: var(--card-radius);
-            padding: 30px;
+            padding: 20px; /* Réduit le padding */
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            margin-top: 2.5rem;
+            margin: 0; /* Supprimé la marge */
             border: 1px solid rgba(0,0,0,0.05);
             text-align: center;
         }
@@ -4639,67 +4896,42 @@ body.admin-page .footer-contact i {
         
         /* NOUVELLE SECTION GALERIE PHOTOS SÉPARÉE ET CENTRÉE */
         .gallery-section-separate {
-    padding: 2.5rem 0;
-    background-color: #f8f9fa;
-    text-align: center;
-}
-
-.gallery-section-separate .section-header {
-    margin-bottom: 2rem;
-    text-align: center; /* Ajout pour centrer le header */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre les éléments enfants horizontalement */
-    justify-content: center; /* Centre verticalement si nécessaire */
-}
-
-.gallery-section-separate .section-title {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    text-align: center; /* Assure que le titre est centré */
-    width: 100%; /* Prend toute la largeur pour un centrage correct */
-}
-
-.gallery-section-separate .section-subtitle {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto;
-    font-style: italic;
-    text-align: center; /* Assure que le sous-titre est centré */
-}
-        
-        /* NOUVELLE SECTION PARTENAIRES SÉPARÉE ET CENTRÉE */
-        .partenaires-section-separate {
-            padding: 2.5rem 0;
-            background-color: white;
+            padding: 0; /* Supprimé le padding */
+            background-color: #f8f9fa;
             text-align: center;
         }
         
-        .partenaires-section-separate .section-header {
-            margin-bottom: 2rem;
+        .gallery-section-separate .section-header {
+            margin-bottom: 0; /* Supprimé la marge basse */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px; /* Ajouté un padding */
         }
         
-        .partenaires-section-separate .section-title {
+        .gallery-section-separate .section-title {
             color: var(--primary-color);
             font-size: 2rem;
             margin-bottom: 0.5rem;
+            text-align: center;
         }
         
-        .partenaires-section-separate .section-subtitle {
+        .gallery-section-separate .section-subtitle {
             color: var(--secondary-color);
             font-size: 1.1rem;
             max-width: 700px;
             margin: 0 auto;
             font-style: italic;
+            text-align: center;
         }
         
-        /* Style des éléments de galerie (conservés) */
+        /* Style des éléments de galerie */
         .gallery-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 25px;
+            gap: 20px; /* Réduit l'espace entre les images */
+            padding: 0 15px 20px; /* Réduit le padding bas */
         }
         
         @media (min-width: 768px) {
@@ -4766,11 +4998,44 @@ body.admin-page .footer-contact i {
             opacity: 0.9;
         }
         
-        /* Grid Partenaires (conservé) */
+        /* NOUVELLE SECTION PARTENAIRES SÉPARÉE ET CENTRÉE */
+        .partenaires-section-separate {
+            padding: 0; /* Supprimé le padding */
+            background-color: white;
+            text-align: center;
+        }
+        
+        .partenaires-section-separate .section-header {
+            margin-bottom: 0; /* Supprimé la marge basse */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px; /* Ajouté un padding */
+        }
+        
+        .partenaires-section-separate .section-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .partenaires-section-separate .section-subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        /* Grid Partenaires */
         .partenaires-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 25px;
+            gap: 20px; /* Réduit l'espace entre les cartes */
+            padding: 0 15px 20px; /* Réduit le padding bas */
         }
         
         @media (min-width: 768px) {
@@ -4788,12 +5053,15 @@ body.admin-page .footer-contact i {
         .partenaire-card {
             background-color: white;
             border-radius: var(--card-radius);
-            padding: 25px;
+            padding: 20px; /* Réduit le padding */
             text-align: center;
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.05);
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .partenaire-card:hover {
@@ -4804,22 +5072,41 @@ body.admin-page .footer-contact i {
         
         .partenaire-logo {
             height: 100px;
+            width: 100px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.2rem;
+            margin: 0 auto 1rem; /* Réduit la marge basse */
+            transition: all 0.3s ease;
+            overflow: hidden;
+            background-color: white;
+            border: 3px solid rgba(10, 61, 98, 0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
         
         .partenaire-logo img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+            border-radius: 50%;
+            display: block;
+        }
+        
+        .partenaire-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .partenaire-content h3 {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
             font-size: 1.2rem;
+            text-align: center;
         }
         
         .partenaire-content p {
@@ -4827,6 +5114,7 @@ body.admin-page .footer-contact i {
             font-size: 0.9rem;
             line-height: 1.5;
             margin-bottom: 0.8rem;
+            text-align: center;
         }
         
         .partenaire-content .btn {
@@ -4902,15 +5190,20 @@ body.admin-page .footer-contact i {
             }
             
             .visite-virtuelle-container {
-                padding: 1.5rem;
+                padding: 15px;
             }
             
             .histoire-intro {
-                padding: 1rem;
+                padding: 15px;
             }
             
             .histoire-intro h2 {
                 font-size: 1.5rem;
+            }
+            
+            .partenaire-logo {
+                height: 90px;
+                width: 90px;
             }
         }
         
@@ -4925,6 +5218,11 @@ body.admin-page .footer-contact i {
             
             .hotel-stats .stat-item i {
                 font-size: 1.2rem;
+            }
+            
+            .partenaire-logo {
+                height: 80px;
+                width: 80px;
             }
         }
         
@@ -4964,445 +5262,182 @@ body.admin-page .footer-contact i {
   
 
         /* Centrer le titre de coopération internationale */
-.partenaires-section-separate h3 {
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    display: block !important;
-}
-
-/* Centrer le texte de coopération internationale */
-.partenaires-section-separate p {
-    text-align: center !important;
-}
-
-/* Style pour la section Partenaires séparée et centrée */
-.partenaires-section-separate {
-    padding: 2.5rem 0;
-    background-color: white;
-    text-align: center;
-}
-
-.partenaires-section-separate .section-header {
-    margin-bottom: 2rem;
-    text-align: center; /* Centre le header */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre les éléments enfants horizontalement */
-    justify-content: center; /* Centre verticalement si nécessaire */
-}
-
-.partenaires-section-separate .section-title {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    text-align: center; /* Centre le titre */
-    width: 100%; /* Prend toute la largeur pour un centrage correct */
-}
-
-.partenaires-section-separate .section-subtitle {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto;
-    font-style: italic;
-    text-align: center; /* Centre le sous-titre */
-}
-
-
-
-/* Centrer le titre de coopération internationale */
-.partenaires-section-separate h3 {
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    display: block !important;
-}
-
-/* Centrer le texte de coopération internationale */
-.partenaires-section-separate p {
-    text-align: center !important;
-}
-
-/* Style pour la section Partenaires séparée et centrée */
-.partenaires-section-separate {
-    padding: 2.5rem 0;
-    background-color: white;
-    text-align: center;
-}
-
-.partenaires-section-separate .section-header {
-    margin-bottom: 2rem;
-    text-align: center; /* Centre le header */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre les éléments enfants horizontalement */
-    justify-content: center; /* Centre verticalement si nécessaire */
-}
-
-.partenaires-section-separate .section-title {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    text-align: center; /* Centre le titre */
-    width: 100%; /* Prend toute la largeur pour un centrage correct */
-}
-
-.partenaires-section-separate .section-subtitle {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto;
-    font-style: italic;
-    text-align: center; /* Centre le sous-titre */
-}
-
-/* Rendre les logos des partenaires ronds - OPTION 1: FOND UNI */
-.partenaires-section-separate .partenaire-logo {
-    height: 130px;
-    width: 130px; /* Largeur égale à la hauteur pour un cercle parfait */
-    border-radius: 50%; /* Rendre le conteneur rond */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.2rem; /* Centrer horizontalement */
-    transition: all 0.3s ease;
-    overflow: hidden; /* Cacher les coins */
-    background-color: white; /* Fond blanc */
-    border: 3px solid rgba(10, 61, 98, 0.1); /* Bordure subtile */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Ombre légère */
-}
-
-/* L'IMAGE DOIT PRENDRE TOUTE LA FORME DU LOGO */
-.partenaires-section-separate .partenaire-logo img {
-    width: 100%; /* L'image prend toute la largeur du conteneur */
-    height: 100%; /* L'image prend toute la hauteur du conteneur */
-    object-fit: cover; /* Couvre tout l'espace sans déformation */
-    object-position: center; /* Centre l'image dans le conteneur */
-    transition: transform 0.3s ease;
-    border-radius: 50%; /* Rendre l'image ronde aussi */
-    display: block; /* Éviter l'espace blanc sous l'image */
-}
-
-/* OPTION 2: Pour les logos avec fond transparent (moins courant) */
-.partenaires-section-separate .partenaire-logo.transparent-bg {
-    background-color: transparent; /* Pas de fond blanc */
-    border: 2px solid rgba(10, 61, 98, 0.1); /* Bordure plus fine */
-}
-
-.partenaires-section-separate .partenaire-logo.transparent-bg img {
-    object-fit: contain; /* Contient l'image entière */
-    padding: 10px; /* Espace intérieur pour les logos avec fond transparent */
-}
-
-/* Effet d'agrandissement au survol */
-.partenaires-section-separate .partenaire-card:hover .partenaire-logo {
-    border-color: var(--primary-color); /* Bordure colorée au survol */
-    transform: scale(1.05); /* Agrandit légèrement le conteneur */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-.partenaires-section-separate .partenaire-card:hover .partenaire-logo img {
-    transform: scale(1.05); /* Agrandit légèrement l'image */
-}
-
-/* Style pour la partie de coopération internationale en bas */
-.partenaires-section-separate .cooperation-internationale {
-    text-align: center !important;
-    padding: 1.5rem !important;
-    background: #f8f9fa !important;
-    border-radius: 8px !important;
-    max-width: 800px !important;
-    margin: 2.5rem auto !important;
-    display: block !important;
-}
-
-.partenaires-section-separate .cooperation-internationale h3 {
-    color: var(--primary-color) !important;
-    margin-bottom: 0.8rem !important;
-    font-size: 1.2rem !important;
-    text-align: center !important;
-}
-
-.partenaires-section-separate .cooperation-internationale p {
-    color: #666 !important;
-    line-height: 1.5 !important;
-    font-size: 0.95rem !important;
-    text-align: center !important;
-    max-width: 700px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-/* Pour les écrans plus grands - agrandir encore plus */
-@media (min-width: 1024px) {
-    .partenaires-section-separate .partenaire-logo {
-        height: 140px;
-        width: 140px;
-    }
-}
-
-/* Pour les écrans mobiles - ajuster la taille */
-@media (max-width: 768px) {
-    .partenaires-section-separate .partenaire-logo {
-        height: 110px;
-        width: 110px;
-    }
-    
-    .partenaires-section-separate .section-title {
-        font-size: 1.8rem;
-    }
-    
-    /* CORRECTION POUR LE BOUTON MENU MOBILE */
-    .mobile-menu-btn {
-        display: block !important;
-        position: absolute !important;
-        right: 20px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        background: var(--primary-color) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 5px !important;
-        padding: 12px 15px !important;
-        font-size: 1.2rem !important;
-        cursor: pointer !important;
-        z-index: 1001 !important;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    .mobile-menu-btn:hover {
-        background: var(--secondary-color) !important;
-        transform: translateY(-50%) scale(1.05) !important;
-    }
-    
-    /* Menu mobile caché par défaut */
-    .mobile-menu {
-        display: none !important;
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        width: 100% !important;
-        background: white !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
-        z-index: 1000 !important;
-        animation: slideDown 0.3s ease forwards !important;
-    }
-    
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
+        .partenaires-section-separate h3 {
+            text-align: center !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            display: block !important;
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        
+        /* Centrer le texte de coopération internationale */
+        .partenaires-section-separate p {
+            text-align: center !important;
         }
-    }
-    
-    /* Menu mobile visible quand actif */
-    .mobile-menu.active {
-        display: block !important;
-    }
-    
-    .mobile-menu ul {
-        list-style: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    .mobile-menu li {
-        border-bottom: 1px solid #f0f0f0 !important;
-    }
-    
-    .mobile-menu li:last-child {
-        border-bottom: none !important;
-    }
-    
-    .mobile-menu a {
-        display: block !important;
-        padding: 15px 20px !important;
-        color: #333 !important;
-        text-decoration: none !important;
-        transition: all 0.3s ease !important;
-        font-weight: 500 !important;
-    }
-    
-    .mobile-menu a:hover,
-    .mobile-menu a.active {
-        background: var(--primary-color) !important;
-        color: white !important;
-        padding-left: 25px !important;
-    }
-}
-
-/* Pour les très petits écrans */
-@media (max-width: 480px) {
-    .partenaires-section-separate .partenaire-logo {
-        height: 100px;
-        width: 100px;
-    }
-    
-    .partenaires-section-separate .section-title {
-        font-size: 1.6rem;
-    }
-    
-    /* Ajustements supplémentaires pour très petits écrans */
-    .mobile-menu-btn {
-        padding: 10px 12px !important;
-        font-size: 1.1rem !important;
-        right: 15px !important;
-    }
-    
-    .mobile-menu a {
-        padding: 12px 15px !important;
-        font-size: 0.95rem !important;
-    }
-}
-/* Assurer que les cartes de partenaires sont bien centrées */
-.partenaires-section-separate .partenaire-card {
-    background-color: white;
-    border-radius: var(--card-radius);
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.05);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre le contenu de la carte */
-}
-
-/* S'assurer que le contenu des cartes est centré */
-.partenaires-section-separate .partenaire-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre le contenu horizontalement */
-}
-
-.partenaires-section-separate .partenaire-content h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.partenaires-section-separate .partenaire-content p {
-    color: #666;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 0.8rem;
-    text-align: center;
-}
-
-
-
-/* Styles pour le bouton "Lire tout le texte" */
-.read-more-btn {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 10px 0;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.read-more-btn:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    border-color: rgba(255, 255, 255, 0.6);
-    transform: translateY(-2px);
-}
-
-.read-more-btn .btn-icon {
-    transition: transform 0.3s ease;
-}
-
-.read-more-btn.active .btn-icon {
-    transform: rotate(180deg);
-}
-
-/* Styles pour le contenu de description */
-.description-content {
-    margin: 10px 0;
-    max-height: 100px;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-}
-
-.description-content.expanded {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.description-short {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.description-full {
-    display: none;
-    padding-top: 10px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.95);
-}
-
-.description-content.expanded .description-short {
-    display: none;
-}
-
-.description-content.expanded .description-full {
-    display: block;
-}
-
-.description-full h4 {
-    margin: 15px 0 5px 0;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.description-full p {
-    margin-bottom: 10px;
-}
-
-/* Style pour la galerie-overlay pour accommoder plus de texte */
-.galerie-overlay {
-    padding: 15px;
-    overflow: hidden;
-}
-
-.galerie-overlay h3 {
-    margin-bottom: 8px;
-}
-
-/* Scrollbar personnalisée pour la description étendue */
-.description-content.expanded::-webkit-scrollbar {
-    width: 5px;
-}
-
-.description-content.expanded::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
-
-.description-content.expanded::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-}
+        
+        /* Style pour la section Partenaires */
+        .partenaires-section-separate {
+            padding: 0;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .partenaires-section-separate .section-header {
+            margin-bottom: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .partenaires-section-separate .section-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .partenaires-section-separate .section-subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        /* Style pour la partie de coopération internationale */
+        .partenaires-section-separate .cooperation-internationale {
+            text-align: center !important;
+            padding: 1.5rem !important;
+            background: #f8f9fa !important;
+            border-radius: 8px !important;
+            max-width: 800px !important;
+            margin: 0 auto 20px !important; /* Réduit la marge basse */
+            display: block !important;
+        }
+        
+        .partenaires-section-separate .cooperation-internationale h3 {
+            color: var(--primary-color) !important;
+            margin-bottom: 0.8rem !important;
+            font-size: 1.2rem !important;
+            text-align: center !important;
+        }
+        
+        .partenaires-section-separate .cooperation-internationale p {
+            color: #666 !important;
+            line-height: 1.5 !important;
+            font-size: 0.95rem !important;
+            text-align: center !important;
+            max-width: 700px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+        
+        /* Styles pour le bouton "Lire tout le texte" */
+        .read-more-btn {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .read-more-btn:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .read-more-btn .btn-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more-btn.active .btn-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Styles pour le contenu de description */
+        .description-content {
+            margin: 10px 0;
+            max-height: 100px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .description-content.expanded {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .description-short {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .description-full {
+            display: none;
+            padding-top: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .description-content.expanded .description-short {
+            display: none;
+        }
+        
+        .description-content.expanded .description-full {
+            display: block;
+        }
+        
+        .description-full h4 {
+            margin: 15px 0 5px 0;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .description-full p {
+            margin-bottom: 10px;
+        }
+        
+        /* Style pour la galerie-overlay pour accommoder plus de texte */
+        .galerie-overlay {
+            padding: 15px;
+            overflow: hidden;
+        }
+        
+        .galerie-overlay h3 {
+            margin-bottom: 8px;
+        }
+        
+        /* Scrollbar personnalisée pour la description étendue */
+        .description-content.expanded::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .description-content.expanded::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .description-content.expanded::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
